@@ -3,8 +3,6 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.Configuration" Version="0.1.2" />
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -13,5 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
     <ProjectReference Include="..\Blog.EntityFramework\Blog.EntityFramework.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 </Project>

@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AspectCore.Extensions.DependencyInjection;
-using AspectCore.Extensions.Configuration;
 using System.Reflection;
 using Blog.Repository;
 using Blog.Core.Articles.Model;
 using Blog.Core;
 using Blog.EntityFramework.Repository;
+using Blog.Domain.Service;
 
 namespace Blog.Web
 {
@@ -31,14 +30,11 @@ namespace Blog.Web
         {
             services.AddMvc();
             services.AddDbContext<BlogDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddTransient<IRepository<Article>, EfRepositoryBase<BlogDbContext, Article>>();
-            //services.AddAspectCore(o =>
-            //{
-
-            //})
+            services.AddRepository();
+            services.AddDomainService();
+            
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

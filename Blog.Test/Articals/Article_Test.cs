@@ -1,4 +1,6 @@
 ﻿using Blog.Core;
+using Blog.Core.Articles;
+using Blog.Core.Articles.Dto;
 using Blog.Core.Articles.Model;
 using Blog.EntityFramework.Repository;
 using Blog.Repository;
@@ -16,35 +18,29 @@ using Xunit;
 
 namespace Blog.Test.Articles
 {
-    public class Article_Test
+    public class Article_Test : BlogTestBase
     {
         private TestServer _server;
+        private IArticleService articleService;
 
         public Article_Test()
         {
-            // _server= new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            AddTestDbContext<BlogDbContext>();
+            this.articleService = _serviceProvider.GetRequiredService<IArticleService>();
         }
-        [Fact]
-        public void Db_Test()
-        {
-            var options = new DbContextOptionsBuilder<BlogDbContext>()
-                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
-                .Options;
-            using (var db = new BlogDbContext(options))
-            {
-                db.Articles.Add(new Article()
-                {
-                    Content = "内容"
-                });
-                db.SaveChanges();
-            }
 
-            using (var db = new BlogDbContext(options))
+        [Fact]
+        public async System.Threading.Tasks.Task GetArticleByPageAsync_TestAsync()
+        {
+            BlogDbInitializer.Initialize(base.DbContext as BlogDbContext);
+            var articles=await articleService.GetArticleByPageAsync(new QueryAriticelInputDto()
             {
-                var article = db.Articles.FirstOrDefault();
-                article.Content.ShouldBe("内容");
-            }
+                MaxResultCount = 10,
+                SkipCount = 0
+            });
+            articles.Items.Count.ShouldBe(10);
+            articles.TotalCount.ShouldBeGreaterThan(10);
         }
-       
+
     }
 }

@@ -1,0 +1,52 @@
+@import './common.css';
+
+.main_content {
+    padding: 0 20px;
+}
+.main_content article{
+    padding:0 20px;
+}
+.main_content article img{
+    width: 100%;
+}
+.main{
+    margin:55px -15px 55px -15px;
+}
+article .post_header{
+    text-align: center;
+}
+article .post_title{
+    font-size: 28px;
+    margin: 20px;
+}
+article .post_info{
+    margin:10px 0 10px 0;
+    display: inline-block;
+}
+article .post_info ul li{
+    float: left;
+    color: #629a90;
+}
+article .post_info ul li:not(:first-of-type){
+   border-left: 1px solid #629a90;
+   margin-left: 5px;
+   padding-left: 5px
+}
+.post_action .tag_share{
+    border: 1px solid #ddd;
+    margin: 20px 0;
+} 
+    .tag_share .tags div{
+        float: left;
+        padding: 20px 3px;
+    }
+    .tag_share .tags div:first-of-type{
+        font-weight: bolder;
+        margin-left: 30px;
+    }
+    .tag_share .tags .tag{
+        color: #aaa;
+    }
+    .tag_share .tags .tag:not(:last-of-type)::after{
+        content: ','
+    }
