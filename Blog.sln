@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core", "Blog.Core\Blog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Test", "Blog.Test\Blog.Test.csproj", "{EDE91248-F5F9-4654-8CAD-614AC24C9541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.AutoMapper", "Blog.AutoMapper\Blog.AutoMapper.csproj", "{B0DF8948-CA56-4D5A-BF11-BB7AAF457BD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.AutoMapper", "Blog.AutoMapper\Blog.AutoMapper.csproj", "{B0DF8948-CA56-4D5A-BF11-BB7AAF457BD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

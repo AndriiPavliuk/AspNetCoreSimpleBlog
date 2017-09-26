@@ -1,0 +1,85 @@
+﻿.cover_title {
+    text-align: center;
+    padding: 100px 15px;
+    background-image: url(http://demo.dgtthemes.com/dumblog/wp-content/uploads/2016/05/default-cover-image.jpg);
+}
+
+.post_thumb img {
+    height: 100%;
+    width: 100%;
+}
+
+.post_title {
+    text-align: center;
+}
+    .post_title h2{
+        margin:10px 0;
+    }
+    .post_title a {
+        font-size:18px;
+        color: #000;
+        transition: .3s;
+    }
+
+        .post_title a:hover {
+            color: #629a90;
+        }
+
+.post_info {
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+    .post_info ul {
+        display: inline-block;
+    }
+
+
+        .post_info ul li {
+            float: left;
+            color: #629a90;
+        }
+
+            .post_info ul li:not(:first-of-type) {
+                border-left: 1px solid #629a90;
+                margin-left: 5px;
+                padding-left: 5px
+            }
+
+.tags_wrap {
+    text-align: center;
+    margin-top: 20px;
+    position:relative;
+}
+
+
+    .tags_wrap::before {
+        content: ' ';
+        background-color: black;
+        width: 2px;
+        height: 28px;
+        position: absolute;
+        left: 50%;
+        top: -20px;
+    }
+
+
+.tags {
+    display: inline-block;
+    border: 2px solid;
+    background-color: white;
+}
+
+    .tags li {
+        float: left;
+        color: black !important;
+        font-weight: bolder;
+        padding: 10px;
+        border: none !important;
+    }
+
+
+.content_list hr {
+    width: 50px;
+    margin-left: 0;
+}

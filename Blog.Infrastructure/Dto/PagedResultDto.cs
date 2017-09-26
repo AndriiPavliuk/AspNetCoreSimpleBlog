@@ -30,7 +30,10 @@ namespace Blog.Dto
             get;
             set;
         }
-       
+        public int MaxPageCount(int MaxCount)
+        {
+            return (TotalCount / MaxCount)+1;
+        }
         public PagedResultDto(int totalCount, IReadOnlyList<T> items)
         {
             this.Items = items;

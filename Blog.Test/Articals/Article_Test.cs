@@ -14,6 +14,7 @@ using Shouldly;
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Blog.Test.Articles
@@ -26,21 +27,37 @@ namespace Blog.Test.Articles
         public Article_Test()
         {
             AddTestDbContext<BlogDbContext>();
+            BlogDbInitializer.Initialize(base.DbContext as BlogDbContext);
             this.articleService = _serviceProvider.GetRequiredService<IArticleService>();
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task GetArticleByPageAsync_TestAsync()
+        public async Task GetArticleByPageAsync_TestAsync()
         {
-            BlogDbInitializer.Initialize(base.DbContext as BlogDbContext);
+           
             var articles=await articleService.GetArticleByPageAsync(new QueryAriticelInputDto()
             {
-                MaxResultCount = 10,
+                MaxResultCount = 5,
                 SkipCount = 0
             });
-            articles.Items.Count.ShouldBe(10);
-            articles.TotalCount.ShouldBeGreaterThan(10);
+            articles.Items.Count.ShouldBe(5);
+            articles.TotalCount.ShouldBeGreaterThan(5);
         }
 
+        [Fact]
+        public async Task GetArticle_TestAsync()
+        {
+            var article = await articleService.GetArticelAsync(1);
+            article.Tags.ShouldNotBeNull();
+            article.Tags.Count.ShouldBeGreaterThan(0);
+        }
+
+
+        [Fact]
+        public async Task GetArticleByTag_TestAsync()
+        {
+            var article=await articleService.GetArticelByTag("标签1");
+            article.ShouldNotBeNull();
+        }
     }
 }

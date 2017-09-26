@@ -14,5 +14,7 @@ namespace Blog.Core.Articles
         Task<PagedResultDto<Article>> GetArticleByPageAsync(QueryAriticelInputDto pagedResult);
         Task AddArticle(Article newArticle);
         Task UpdateArticle(Article article);
+        Task<Article> GetArticelAsync(int id);
+        Task<List<Article>> GetArticelByTag(string tagName);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Entity;
+using Blog.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,8 +56,7 @@ namespace Blog.Repository
             TEntity entity = this.FirstOrDefault(id);
             if (entity == null)
             {
-                throw new Exception($"There is no such an entity." +
-                    $" type: {typeof(TEntity).Name}, id: {id.ToString()}");
+                throw new EntityNotFoundException(typeof(TEntity).Name, id.ToString());
             }
             return entity;
         }
@@ -66,8 +66,7 @@ namespace Blog.Repository
             TEntity entity = await this.FirstOrDefaultAsync(id);
             if (entity == null)
             {
-                throw new Exception($"There is no such an entity." +
-                    $" type: {typeof(TEntity).Name}, id: {id.ToString()}");
+                throw new EntityNotFoundException(typeof(TEntity).Name, id.ToString());
             }
             return entity;
         }

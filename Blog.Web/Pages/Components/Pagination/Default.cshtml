@@ -1,0 +1,36 @@
+﻿
+@model Blog.Web.ViewComponents.Pagination.PaginationModel
+
+
+<ul class="pagination"  data-index="@Model.CurrentIndex" data-total="@Model.TotalPage">
+    <li>
+        <a href="@Url.Page(Model.PageName, "Get",new { SkipCount=Math.Max(0, Model.SkipCount - Model.PageSize) })" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    @for (var i = Model.PreLinkCount; i > 0; i--)
+    {
+        @if (Model.CurrentIndex-i<=0)
+        {
+            continue;
+        }
+        <li>
+            <a href="@Url.Page(Model.PageName, "Get", new { SkipCount= Model.SkipCount - Model.PageSize * i })">@(Model.CurrentIndex - i)</a>
+        </li>
+    }
+    <li class="active"><a href="#">@Model.CurrentIndex</a></li>
+    @for (var i = 1; i < Model.NextLinkCount + 1; i++)
+    {
+        @if (Model.CurrentIndex+i>Model.TotalPage)
+        {
+            break;
+        }
+        <li><a href="@Url.Page(Model.PageName, "Get", new { SkipCount= Model.SkipCount + Model.PageSize*i })">@(Model.CurrentIndex + i)</a></li>
+    }
+    <li>
+        <a href="@Url.Page(Model.PageName, "Get", new { SkipCount= Math.Min(Model.SkipCount+ Model.PageSize ,(Model.TotalPage-1)*Model.PageSize)})"  aria-label="Next">
+            <sp aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>

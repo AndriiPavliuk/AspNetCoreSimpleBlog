@@ -29,5 +29,11 @@ namespace Blog.Dto
             get;
             set;
         }
+        public virtual int CurrentPage
+        {
+            get { return (SkipCount + MaxResultCount) / MaxResultCount; }
+        }
+
+
     }
 }

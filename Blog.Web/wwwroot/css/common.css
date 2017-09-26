@@ -1,77 +1,93 @@
 @import url('https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css');
-a{
+
+a {
     text-decoration: none;
-}
-a:hover{
-    text-decoration: none;
-}
-header.header{
-    margin-top: 50px;
-}
-.logo{ 
-    text-align: center;
-}
-.logo img{
-    padding: 50px 0 50px 0;
 }
 
-.menue_list{
-    margin-bottom: 0;
-    left:0;
-    right:0;
-    position: absolute;
-    top:50%;
-    transform:translateY(-50%)
+    a:hover {
+        text-decoration: none;
+    }
+
+body > div.container {
+    margin-top: 20px;
 }
-.menue_list>li{
-    list-style: none;
-    float: left;
-    padding-right: 30px;
-    position: relative;
+
+header.header {
+    margin-top: 50px;
 }
-.menue_list a{
-}
-.menue_list>li>a{
-    line-height: 30px;
+
+.logo {
     text-align: center;
-    vertical-align: middle;
-    font-weight: bolder;
-    color: black;
 }
-.menue_list>li>a:hover{
-    opacity: .3;
-    transition: opacity .3s;
+
+    .logo img {
+        padding: 50px 0 50px 0;
+    }
+
+.menue_list {
+    margin-bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
 }
-.navbar{
+
+    .menue_list > li {
+        list-style: none;
+        float: left;
+        padding-right: 30px;
+        position: relative;
+    }
+
+    .menue_list a {
+    }
+
+    .menue_list > li > a {
+        line-height: 30px;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: bolder;
+        color: black;
+    }
+
+        .menue_list > li > a:hover {
+            opacity: .3;
+            transition: opacity .3s;
+        }
+
+.navbar {
     border-bottom: 1px solid #ddd;
     background-color: white;
 }
 
 
 
-.sidebar_item{
+.sidebar_item {
     background-color: #f5f5f5;
-    width:100%;
+    width: 100%;
     text-align: center;
-    padding:30px;
+    padding: 30px;
     margin-bottom: 30px;
 }
-.sidebar_item_title{
+
+.sidebar_item_title {
     text-align: center;
     display: inline-block;
     border: 2px solid;
     padding: 0px 48px 0px 48px;
     background-color: white;
-    
 }
-.sidebar_item_title p{
-    font-size: 12px;
-    font-weight: bolder;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    position: relative
-}
-.sidebar_item p::before{
+
+    .sidebar_item_title p {
+        font-size: 12px;
+        font-weight: bolder;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        position: relative
+    }
+
+.sidebar_item p::before {
     content: ' ';
     background-color: black;
     width: 2px;
@@ -80,50 +96,57 @@ header.header{
     left: 50%;
     top: -42px;
 }
-.sidebar_item_content{
-    padding:20px 10px 10px 10px;
+
+.sidebar_item_content {
+    padding: 20px 10px 10px 10px;
 }
-.my_word{
+
+.my_word {
     margin-top: 20px;
     line-height: 26px;
 }
 
-.category_list{
+.category_list {
     list-style: none;
     text-align: left;
     padding-left: 0;
 }
-.category_list li{
-    line-height: 40px;
-    border-bottom: 1px dashed #ccc;
-    color: rgb(119, 119, 119);
-}
-.category_list li::before{
-    content: ' ';
-    width: 5px;
-    height: 5px;
-    background-color: #ccc;
-    display: inline-block;
-    text-align: center;
-    margin-right: 10px;
-    transform: translateY(-50%);
-}
-.category_list li a{
-    color: inherit;
-    transition: .3s ease;
-}
-.category_list li:hover a{
-    padding-left: 10px;
-    color: rgba(119, 119, 119,.5);
-}
 
-footer{
+    .category_list li {
+        line-height: 40px;
+        border-bottom: 1px dashed #ccc;
+        color: rgb(119, 119, 119);
+    }
+
+        .category_list li::before {
+            content: ' ';
+            width: 5px;
+            height: 5px;
+            background-color: #ccc;
+            display: inline-block;
+            text-align: center;
+            margin-right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .category_list li a {
+            color: inherit;
+            transition: .3s ease;
+        }
+
+        .category_list li:hover a {
+            padding-left: 10px;
+            color: rgba(119, 119, 119,.5);
+        }
+
+footer {
     background-color: black;
     height: 200px;
     text-align: center;
     position: relative
 }
-.copyright{
+
+.copyright {
     position: absolute;
     bottom: 10px;
     left: 0;

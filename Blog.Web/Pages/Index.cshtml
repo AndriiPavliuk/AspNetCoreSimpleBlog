@@ -1,16 +1,15 @@
-﻿@page
+﻿@page "{SkipCount?}"
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home page3";
 }
+
 @section Styles{
     <link href="~/css/index.css" rel="stylesheet" />
 }
 @section Header{
     <header class="header">
-        <div class="logo container">
-            <img src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2016/05/logo.png" alt="WordPress Blog Responsive Theme">
-        </div>
+        @Html.Partial("_Logo")
         <div class="silder_post container">
             <div class="my_carousel">
                 <div class="my_carouse_inner">
@@ -26,7 +25,7 @@
         </div>
     </header>
 }
-<div class="main">
+<div class="main row">
     <div class="main_content col-md-8">
         @foreach (var item in Model.Articels.Items)
         {
@@ -39,7 +38,7 @@
                 <div class="content_list">
                     <div class="post_title">
                         <h2>
-                            <a href="#">@item.Title</a>
+                            <a href="@Url.Page("/Post", new { id = item.Id })">@item.Title</a>
                         </h2>
                     </div>
                     <div class="post_info clearfix">
@@ -56,169 +55,30 @@
             </section>
         }
 
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
-        <section class="article_summary ">
-            <div class="post_thumb">
-                <a href="http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/">
-                    <img width="540" height="353" src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg" class="attachment-medium size-medium wp-post-image" alt="2" srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
-                </a>
-            </div>
-            <div class="content_list">
-                <div class="post_title">
-                    <h2>
-                        <a href="#">Still stuck in that time when we call love</a>
-                    </h2>
-                </div>
-                <div class="post_info clearfix">
-                    <ul class="list-unstyled">
-                        <li>Sep 05th, 2015</li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="summary">
-                    The team after that incident and the two drivers were warned that they risked their future at the team if they damaged each
-                    other's cars out on track. For...
-                </div>
-            </div>
-        </section>
 
         <nav>
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+            @*<ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    string pageName, int pageSize, int total, int skipCount, int preLinkCount = 3, int nextLinkCount = 3, string QueryName = "SkipCount"
+                    </li>
+                </ul>*@
+            <vc:pagination page-name="/Index" page-size="10" skip-count="@Model.PageQuery.SkipCount" total="@Model.Articels.TotalCount">
+
+            </vc:pagination>
+            @await Component.InvokeAsync("Pagination", new { PageName = "/Index", PageSize = 10, SkipCount = Model.PageQuery.SkipCount, Total = Model.Articels.TotalCount })
         </nav>
 
     </div>

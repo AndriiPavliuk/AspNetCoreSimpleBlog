@@ -27,6 +27,8 @@ namespace Blog.Web.Pages
         public async Task OnGetAsync()
         {
             PageQuery.OnlyPublish = true;
+            //HACK 是否要写死每页最大显示?
+            PageQuery.MaxResultCount = 10;
             Articels = await articleService.GetArticleByPageAsync(PageQuery);
         }
     }

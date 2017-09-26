@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.EntityFramework.Repository
 {
@@ -12,6 +13,12 @@ namespace Blog.EntityFramework.Repository
         {
             var db = repository as IRepositoryWithDbContext;
             db.GetDbContext().SaveChanges();
+        }
+
+        public static Task<int> SaveChangesAsync<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository) where TEntity : class
+        {
+            var db = repository as IRepositoryWithDbContext;
+            return db.GetDbContext().SaveChangesAsync();
         }
     }
 }

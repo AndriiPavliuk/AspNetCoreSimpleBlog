@@ -1,0 +1,90 @@
+﻿@page "{Tag?}"
+@model TagModel
+@{
+}
+@section Styles{
+    <link href="~/css/tag.css" rel="stylesheet" />
+}
+@section Header{
+    <header class="header">
+        @Html.Partial("_Logo")
+
+        <div class="container">
+            <div class=" cover_title">
+                <h1>Tag: @Model.TagName</h1>
+            </div>
+        </div>
+
+    </header>
+}
+
+<div class="main row">
+    <div class="sidebar col-md-4">
+        <section class="sidebar_item aboutme">
+            <div class="sidebar_item_title">
+                <p>ABOUT ME</p>
+            </div>
+            <div class="sidebar_item_content">
+                <img src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/10/img-about-me.jpg" alt="..." class="img-circle">
+                <div class="my_word">
+                    Hey guy! My name is Dragon, I'm a web designer I love cat, reading, travelling and sport Welcome to my blog!
+                </div>
+            </div>
+        </section>
+        <section class="sidebar_item category">
+            <div class="sidebar_item_title">
+                <p>CATEGORIES</p>
+            </div>
+            <div class="sidebar_item_content">
+                <ul class="category_list">
+                    <li><a href="">Discovery</a></li>
+                    <li><a href="">Discovery</a></li>
+                    <li><a href="">Discovery</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <div class="main_content col-md-8">
+        @foreach (var item in Model.Articles)
+        {
+            <div class="col-md-6">
+                <div class="post_thumb">
+                    <a href="@Url.Page("/Post",new { id =item.Id})">
+                        <img  href="@(item.PostImage??"http://demo.dgtthemes.com/dumblog/still-stuck-in-that-time-when-we-called-it-love/")"  srcset="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg 540w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-768x502.jpg 768w, http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2.jpg 800w" sizes="(max-width: 540px) 100vw, 540px">
+                    </a>
+                </div>
+                <div class="content_list">
+                    <div class="tags_wrap">
+                        @if (item.Tags != null && item.Tags.Count != 0)
+                        {
+                            <ul class="tags list-unstyled">
+                                @foreach(var tag in item.Tags)
+                                {
+                                    <li>@tag.Name</li>
+                                }
+                            </ul>
+                        }
+                        
+                    </div>
+                    <div class="post_title">
+                        <h2>
+                            <a href="@Url.Page("/Post",new { id =item.Id})">@item.Title</a>
+                        </h2>
+                    </div>
+                    <div class="post_info clearfix">
+
+                        <ul class="list-unstyled">
+                            <li>@item.PostDate</li>
+                        </ul>
+                    </div>
+                    <div class="summary">
+                        @item.Summary
+                    </div>
+                </div>
+            </div>
+        }
+   
+
+        
+    </div>
+</div>

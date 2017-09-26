@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Blog.EntityFramework\Blog.EntityFramework.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
   </ItemGroup>
 
