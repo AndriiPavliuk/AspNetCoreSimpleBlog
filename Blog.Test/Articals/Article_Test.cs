@@ -2,11 +2,13 @@
 using Blog.Core.Articles;
 using Blog.Core.Articles.Dto;
 using Blog.Core.Articles.Model;
+using Blog.Core.Users.Model;
 using Blog.EntityFramework.Repository;
 using Blog.Repository;
 using Blog.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,11 +32,11 @@ namespace Blog.Test.Articles
             BlogDbInitializer.Initialize(base.DbContext as BlogDbContext);
             this.articleService = _serviceProvider.GetRequiredService<IArticleService>();
         }
+       
 
         [Fact]
         public async Task GetArticleByPageAsync_TestAsync()
         {
-           
             var articles=await articleService.GetArticleByPageAsync(new QueryAriticelInputDto()
             {
                 MaxResultCount = 5,

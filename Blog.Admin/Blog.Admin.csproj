@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-Blog.Admin-1BADB04E-06CE-49AF-B5F0-3276BC562E34</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\Account\**" />
+    <Content Remove="Pages\Account\**" />
+    <EmbeddedResource Remove="Pages\Account\**" />
+    <None Remove="Pages\Account\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\Editor.cshtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Pages\Editor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Pages\Account\Lockout.cshtml.cs" />
+    <Compile Include="Pages\Account\Login.cshtml.cs" />
+  
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.13.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pages\Account\Lockout.cshtml" />
+    <None Include="Pages\Account\Login.cshtml" />
+    <None Include="wwwroot\js\plugins\pen\font\fontello.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
+    <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
+  </ItemGroup>
+</Project>

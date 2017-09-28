@@ -15,14 +15,15 @@ namespace Blog.Test
         protected ServiceCollection _serviceCollection;
         protected ServiceProvider _serviceProvider;
         private DbContext _dbContext;
-        protected DbContext DbContext{
+        protected DbContext DbContext
+        {
             set
             {
                 this._dbContext = value;
             }
             get
             {
-                if (_dbContext==null)
+                if (_dbContext == null)
                 {
                     throw new NullReferenceException();
                 }
@@ -41,11 +42,16 @@ namespace Blog.Test
             _serviceCollection = new ServiceCollection();
             _serviceCollection.AddRepository();
             _serviceCollection.AddDomainService();
+            AdditionService(_serviceCollection);
             AddBlogTest(_serviceCollection);
             _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
+        protected virtual void AdditionService(ServiceCollection serviceCollection)
+        {
 
-        protected void AddBlogTest(IServiceCollection service)
+        }
+
+        private void AddBlogTest(IServiceCollection service)
         {
             ITypeFinder typeFinder = new TypeFinder();
             var testTypes = typeFinder.Find(o => typeof(BlogTestBase)
@@ -57,9 +63,13 @@ namespace Blog.Test
                 service.AddTransient(item);
             }
         }
-        protected void AddTestDbContext<T>() where T : DbContext
+        protected void AddTestDbContext<T>(Action<DbContextOptionsBuilder> dbOptionBuilderAction = null) where T : DbContext
         {
-            var dbOptionBuilderAction = new Action<DbContextOptionsBuilder>(o => o.UseInMemoryDatabase("ATestDb"));
+            if (dbOptionBuilderAction == null)
+            {
+
+                dbOptionBuilderAction = new Action<DbContextOptionsBuilder>(o => o.UseInMemoryDatabase("ATestDb"));
+            }
 
             _serviceCollection.AddDbContext<T>(dbOptionBuilderAction);
             _serviceProvider = _serviceCollection.BuildServiceProvider();

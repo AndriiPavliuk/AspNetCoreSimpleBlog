@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DbModelBuilderExtensions.cs" />
     <Compile Remove="Repository\EfRepositoryExtension.cs" />
   </ItemGroup>
 

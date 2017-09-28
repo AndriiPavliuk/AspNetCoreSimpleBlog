@@ -1,6 +1,9 @@
 ﻿using Blog.Core.Articles.Model;
 using Blog.Core.Categorys.Model;
 using Blog.Core.Tags.Model;
+using Blog.Core.Users.Model;
+using Blog.Threading;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,7 @@ namespace Blog.Core
         {
             var instance = new BlogDbInitializer(dbContext);
             instance.SeedArticle();
+            dbContext.SaveChanges();
         }
 
         public BlogDbInitializer SeedArticle()
@@ -96,6 +100,55 @@ namespace Blog.Core
                 });
             }
             DbContext.SaveChanges();
+            return this;
+        }
+
+        public BlogDbInitializer SeedUser(UserManager<User> userManager)
+        {
+
+            //Admin role for host
+            //创建默认Admin角色
+            var adminRole = DbContext.Roles.FirstOrDefault(r => r.Name == "Admin");
+            if (adminRole == null)
+            {
+                adminRole = DbContext.Roles.Add(new IdentityRole { Name = "Admin" }).Entity;
+                DbContext.SaveChanges();
+            }
+
+            //Admin user for tenancy host
+            var adminUser = DbContext.Users.FirstOrDefault(u => u.UserName == User.AdminEmail);
+            if (adminUser == null&&DbContext.Users.Count()==0)
+            {
+                var newUser = new User
+                {
+                    UserName = User.AdminEmail,
+                    //NormalizedUserName = User.AdminEmail.ToUpper(),
+                    PhoneNumber = "18300000000",
+                    Email = User.AdminEmail,
+                    EmailConfirmed = true,
+                    //NormalizedEmail = User.AdminEmail.ToUpper(),
+                };
+                var result = AsyncHelper.RunSync(async () => await userManager.CreateAsync(newUser, User.DefaultPsw));
+                if (!result.Succeeded)
+                {
+                    var error = "";
+                    foreach (var item in result.Errors)
+                    {
+                        error += item.Description;
+                    }
+                    throw new Exception(error);
+                }
+                DbContext.SaveChanges();
+
+                var userRole = new IdentityUserRole<string>()
+                {
+                    RoleId = adminRole.Id,
+                    UserId = newUser.Id
+                };
+                DbContext.UserRoles.Add(userRole);
+
+                DbContext.SaveChanges();
+            }
             return this;
         }
 

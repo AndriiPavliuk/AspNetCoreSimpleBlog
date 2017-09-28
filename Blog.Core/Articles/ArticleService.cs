@@ -33,7 +33,7 @@ namespace Blog.Core.Articles
         public async Task<Article> GetArticelAsync(int id)
         {
             var article = await articleRep.GetAllIncluding(o => o.Tags).Where(o => o.Id == id).FirstAsync();
-            article.ViewCount += 1;
+            
             if (article.Tags == null)
             {
                 article.Tags = new List<Tag>();
