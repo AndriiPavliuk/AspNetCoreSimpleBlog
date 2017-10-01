@@ -12,9 +12,10 @@ namespace Blog.Core.Articles
     public interface IArticleService : IDomainService
     {
         Task<PagedResultDto<Article>> GetArticleByPageAsync(QueryAriticelInputDto pagedResult);
-        Task AddArticle(Article newArticle);
-        Task UpdateArticle(Article article);
+        Task<Article> AddArticleAsync(Article newArticle);
+        Task UpdateArticleAsync(Article article);
         Task<Article> GetArticelAsync(int id);
         Task<List<Article>> GetArticelByTag(string tagName);
+        Task DeleteArticleAsync(int id);
     }
 }

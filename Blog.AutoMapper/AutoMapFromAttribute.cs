@@ -11,7 +11,7 @@ namespace Blog.AutoMapper
         {
             foreach (var item in TargetTypes)
             {
-                configuration.CreateMap(item, type);
+                AdditionConfig(configuration.CreateMap(item, type),item);
             }
         }
     }

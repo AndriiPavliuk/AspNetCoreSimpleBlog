@@ -4,14 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blog.Core
+namespace Blog.Core.Extensions
 {
     /// <summary>
 	/// Extension methods for <see cref="T:System.Data.Entity.DbModelBuilder" />.
 	/// </summary>
 	public static class DbModelBuilderExtensions
     {
-        public static void ChangeAbpTablePrefix<TRole, TUser>(this ModelBuilder modelBuilder, string prefix, string schemaName = null)
+        public static void ChangeTablePrefix<TRole, TUser>(this ModelBuilder modelBuilder, string prefix, string schemaName = null)
         {
             prefix = (prefix ?? "");
             //SetTableName<IdentityRoleClaim<TKey>>(modelBuilder, prefix + "RoleClaims", schemaName);

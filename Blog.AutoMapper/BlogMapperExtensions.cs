@@ -17,5 +17,13 @@ namespace Blog.AutoMapper
         {
             return Mapper.Map(source, destination);
         }
+
+        //public static TDestination MapTo<TSource, TDestination>(this TSource source,TDestination destination)
+        //{
+        //    return Mapper.Map(source, destination, opt =>
+        //    {
+
+        //    })
+        //}
     }
 }

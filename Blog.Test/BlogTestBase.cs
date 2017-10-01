@@ -1,4 +1,5 @@
 ﻿using Blog.Core;
+using Blog.Core.Extensions;
 using Blog.Domain.Service;
 using Blog.EntityFramework.Repository;
 using Blog.Reflection;
@@ -15,7 +16,7 @@ namespace Blog.Test
         protected ServiceCollection _serviceCollection;
         protected ServiceProvider _serviceProvider;
         private DbContext _dbContext;
-        protected DbContext DbContext
+        public DbContext DbContext
         {
             set
             {
@@ -30,6 +31,7 @@ namespace Blog.Test
                 return _dbContext;
             }
         }
+
         protected BlogTestBase(bool initialize = true)
         {
             if (initialize)
@@ -40,30 +42,22 @@ namespace Blog.Test
         protected void Initialize()
         {
             _serviceCollection = new ServiceCollection();
-            _serviceCollection.AddRepository();
-            _serviceCollection.AddDomainService();
+
+            _serviceCollection.AddBlogService();
             AdditionService(_serviceCollection);
-            AddBlogTest(_serviceCollection);
             _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
         protected virtual void AdditionService(ServiceCollection serviceCollection)
         {
 
         }
-
-        private void AddBlogTest(IServiceCollection service)
+        public void AdditionService(Action<ServiceCollection> action)
         {
-            ITypeFinder typeFinder = new TypeFinder();
-            var testTypes = typeFinder.Find(o => typeof(BlogTestBase)
-                  .IsAssignableFrom(o)
-                  && !o.IsAbstract
-                  && o.IsClass);
-            foreach (var item in testTypes)
-            {
-                service.AddTransient(item);
-            }
+            action?.Invoke(_serviceCollection);
+            _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
-        protected void AddTestDbContext<T>(Action<DbContextOptionsBuilder> dbOptionBuilderAction = null) where T : DbContext
+        
+        public void AddTestDbContext<T>(Action<DbContextOptionsBuilder> dbOptionBuilderAction = null) where T : DbContext
         {
             if (dbOptionBuilderAction == null)
             {

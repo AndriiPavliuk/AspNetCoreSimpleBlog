@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Blog.AutoMapper\Blog.AutoMapper.csproj" />
     <ProjectReference Include="..\Blog.EntityFramework\Blog.EntityFramework.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
   </ItemGroup>

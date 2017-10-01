@@ -12,7 +12,6 @@ namespace Blog.Dto
         [Range(0, 2147483647)]
         public virtual int SkipCount { get; set; } = 0;
 
-
         /// <summary>
         /// Sorting information.
         /// Should include sorting field and optionally a direction (ASC or DESC)
@@ -34,6 +33,12 @@ namespace Blog.Dto
             get { return (SkipCount + MaxResultCount) / MaxResultCount; }
         }
 
+        public void FetchFromOther(PagedResultRequestDto input)
+        {
+            this.SkipCount = input.SkipCount;
+            this.Sorting = input.Sorting;
+            this.MaxResultCount = input.MaxResultCount;
+        }
 
     }
 }

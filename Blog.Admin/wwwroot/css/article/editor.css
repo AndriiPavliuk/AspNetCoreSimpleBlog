@@ -1,0 +1,75 @@
+.editor_wrap {
+    max-width: 800px;
+    /* margin:auto; */
+}
+
+.markdown_editor {
+    padding: 80px 0px 0 0px;
+}
+
+.toolbar_wrap {
+    position: relative;
+    top: -30px;
+}
+
+#custom-toolbar::after {
+    display: none;
+}
+
+.tag_bar {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+}
+/*tagbar in the bottom*/
+#tagIcon {
+    font-size: 1.7rem;
+}
+
+#tag_inputBox > * {
+    display: inline-block;
+}
+
+#tags span.label {
+    margin-left: 5px;
+    padding-right: 10px;
+}
+
+#tags span > i.fa {
+    opacity: .7;
+    cursor: pointer;
+}
+
+    #tags span > i.fa:hover {
+        opacity: 1;
+    }
+
+#tagInput {
+    display: inline-block;
+    border: none;
+    background-color: inherit;
+    outline: 0;
+}
+/*article info aside*/
+.article_info {
+    height: 200px;
+    float: left;
+    top: 100px;
+}
+
+    .article_info dl dt {
+        float: left;
+    }
+
+.taglist .label {
+    margin-right: 3px;
+}
+
+.taglist span.label > i.fa {
+    opacity: .7;
+    cursor: pointer;
+}
+
+.taglist span > i.fa:hover {
+    opacity: 1;
+}

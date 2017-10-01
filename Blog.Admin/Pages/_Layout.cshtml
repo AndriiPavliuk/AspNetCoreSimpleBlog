@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -7,21 +8,28 @@
     <title>H+ 后台主题UI框架 - 主页</title>
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <meta name="X-CSRF-TOKEN" content="@Xsrf.GetAndStoreTokens(Context).RequestToken"/>
     <!--[if lt IE 8]>
     <script>
         alert('H+已不支持IE6-8，请使用谷歌、火狐等浏览器\n或360、QQ等国产浏览器的极速模式浏览本页面！');
     </script>
     <![endif]-->
-    <link href="/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?v=4.3.0" rel="stylesheet">
-    <link href="/css/animate.min.css" rel="stylesheet">
-    <link href="/css/style.min.css?v=3.2.0" rel="stylesheet">
+    <environment include="Development">
+        <link href="/css/bootstrap.css?v=3.4.0" rel="stylesheet">
+        <link href="/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet">
+        <link href="/css/hpstyle.css?v=3.2.0" rel="stylesheet">
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/site.min.css" asp-append-version="true" rel="stylesheet" />
+    </environment>
     @RenderSection("Styles", required: false)
 </head>
 <body class="gray-bg">
     @RenderBody()
     <script src="/js/hplus/jquery-2.1.1.min.js"></script>
     <script src="/js/hplus/bootstrap.min.js?v=3.4.0"></script>
+    <script src="~/js/helper.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

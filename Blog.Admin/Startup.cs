@@ -14,6 +14,7 @@ using Blog.Core;
 using Blog.Core.Users.Model;
 using Blog.EntityFramework.Repository;
 using Blog.Domain.Service;
+using Blog.Core.Extensions;
 
 namespace Blog.Admin
 {
@@ -40,10 +41,13 @@ namespace Blog.Admin
             })
                 .AddEntityFrameworkStores<BlogDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddAntiforgery(o =>
+            {
+                o.HeaderName = "X-CSRF-TOKEN";
+            });
 
             SeedUser(services);
-            services.AddRepository();
-            services.AddDomainService();
+            services.AddBlogService();
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
@@ -82,6 +86,7 @@ namespace Blog.Admin
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
 
             app.UseMvc(routes =>
             {

@@ -14,11 +14,10 @@ namespace Blog.AutoMapper
 
         public override void CreateMap(IMapperConfigurationExpression configuration, Type type)
         {
-
             foreach (var item in TargetTypes)
             {
-                configuration.CreateMap(type, item,MemberList.Destination);
-                configuration.CreateMap(item,type);
+                AdditionConfig(configuration.CreateMap(type, item, MemberList.Destination), type);
+                AdditionConfig(configuration.CreateMap(item, type), item);
             }
         }
     }

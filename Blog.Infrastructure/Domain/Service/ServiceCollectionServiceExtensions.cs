@@ -10,6 +10,11 @@ namespace Blog.Domain.Service
 {
     public static class ServiceCollectionServiceExtensions
     {
+        /// <summary>
+        /// 需要先注册仓储
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddDomainService(this IServiceCollection services)
         {
             if (services == null)

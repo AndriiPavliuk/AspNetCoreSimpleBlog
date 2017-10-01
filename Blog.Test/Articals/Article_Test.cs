@@ -21,15 +21,14 @@ using Xunit;
 
 namespace Blog.Test.Articles
 {
-    public class Article_Test : BlogTestBase
+    public class ArticleService_Test : BlogTestBase
     {
         private TestServer _server;
         private IArticleService articleService;
 
-        public Article_Test()
+        public ArticleService_Test()
         {
-            AddTestDbContext<BlogDbContext>();
-            BlogDbInitializer.Initialize(base.DbContext as BlogDbContext);
+            this.InitDb();
             this.articleService = _serviceProvider.GetRequiredService<IArticleService>();
         }
        

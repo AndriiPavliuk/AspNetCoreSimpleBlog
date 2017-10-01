@@ -28,6 +28,8 @@ namespace Blog.Web.Pages
             try
             {
                 Article = await articleService.GetArticelAsync(id);
+                Article.ViewCount += 1;
+                await articleService.UpdateArticleAsync(Article);
             }
             catch (EntityNotFoundException e)
             {

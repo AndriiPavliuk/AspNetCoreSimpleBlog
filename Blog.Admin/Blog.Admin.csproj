@@ -13,6 +13,7 @@
     <Compile Remove="Pages\Editor.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Pages\Articles\_ViewStart.cshtml" />
     <Content Remove="Pages\Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -20,8 +21,10 @@
     <Compile Include="Pages\Account\Login.cshtml.cs" />
   
   </ItemGroup>
+
  
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="2.5.357" />
     <PackageReference Include="Markdig" Version="0.13.3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
@@ -35,9 +38,19 @@
   <ItemGroup>
     <None Include="Pages\Account\Lockout.cshtml" />
     <None Include="Pages\Account\Login.cshtml" />
+    <None Include="wwwroot\js\article\editor.js" />
+    <None Include="wwwroot\js\plugins\bootstrap-table\.DS_Store" />
+    <None Include="wwwroot\js\plugins\bootstrap-table\bootstrap-table-mobile.min.js" />
+    <None Include="wwwroot\js\plugins\bootstrap-table\bootstrap-table.min.js" />
+    <None Include="wwwroot\js\plugins\bootstrap-table\locale\bootstrap-table-zh-CN.js" />
+    <None Include="wwwroot\js\plugins\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
+    <None Include="wwwroot\js\plugins\layer\extend\layer.ext.js" />
+    <None Include="wwwroot\js\plugins\pace\pace.min.js" />
     <None Include="wwwroot\js\plugins\pen\font\fontello.svg" />
+    <None Include="wwwroot\js\plugins\toastr\toastr.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog.AutoMapper\Blog.AutoMapper.csproj" />
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
   </ItemGroup>

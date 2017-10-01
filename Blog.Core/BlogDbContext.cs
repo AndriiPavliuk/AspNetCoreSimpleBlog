@@ -1,6 +1,7 @@
 ﻿using Blog.Core.Articles.Model;
 using Blog.Core.Categorys.Model;
 using Blog.Core.Tags.Model;
+using Blog.Core.Extensions;
 using Blog.Core.Users.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Blog.Core
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ChangeAbpTablePrefix<IdentityRole,User>("");
+            modelBuilder.ChangeTablePrefix<IdentityRole,User>("");
 
             
         }
