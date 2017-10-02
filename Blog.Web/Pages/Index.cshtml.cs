@@ -18,7 +18,7 @@ namespace Blog.Web.Pages
 
         [BindProperty(SupportsGet = true)]
         public QueryAriticelInputDto PageQuery { get; set; }
-        public PagedResultDto<Article> Articels { get; private set; }
+        public PagedResultDto<ArticleDto> Articels { get; private set; }
 
         public IndexModel(IArticleService articleService)
         {

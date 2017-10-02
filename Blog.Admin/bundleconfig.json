@@ -7,6 +7,7 @@
     "inputFiles": [
       "wwwroot/css/article/index.css",
       "wwwroot/css/article/editor.css",
+      "wwwroot/css/plugins/toastr/toastr.min.css",
       "wwwroot/css/bootstrap.css",
       "wwwroot/css/font-awesome.css",
       "wwwroot/css/hpstyle.css",

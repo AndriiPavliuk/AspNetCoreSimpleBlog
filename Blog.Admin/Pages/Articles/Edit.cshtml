@@ -1,5 +1,5 @@
-﻿@page "{articleId}"
-
+﻿@page "{articleId:int}"
+@inject Blog.Repository.IRepository<Category> categoryRep
 @model EditModel
 @{
 }
@@ -33,20 +33,7 @@
     <div data-toggle="pen" data-placeholder="请输入">
         @Html.Raw(Markdig.Markdown.ToHtml(Model.CurrentArticle.Content))
     </div>
-    @*<div class="tag_bar">
-        <div id="tag_inputBox" class="clearfix">
-        <i class="fa fa-bookmark-o" id="tagIcon"></i>
-        <div id="tags">
-        @foreach (var item in Model.CurrentArticle.Tags)
-        {
-        <span class="label label-primary">@item.Name <i class="fa fa-times-circle"></i></span>
-        }
-        </div>
-        <div class="dropup" id="tagInputGroup">
-        <input type="text" id="tagInput" style="display: inline-block;">
-        </div>
-        </div>
-        </div>*@
+
 </div>
 
 <div class="modal inmodal" id="modal_edit_tags" tabindex="-1" role="dialog">
@@ -61,9 +48,13 @@
                 <input type="hidden" asp-for="CurrentArticle.Id" />
                 <input type="hidden" asp-for="CurrentArticle.PostDate" />
                 <input type="hidden" asp-for="CurrentArticle.IsPublish" />
-                 <div class="row">
+                <div class="row">
                     <label asp-for="CurrentArticle.Title"></label>
                     <input class="form-control" asp-for="CurrentArticle.Title" placeholder="请输入文章标题">
+                </div>
+                <div class="row">
+                    <label asp-for="CurrentArticle.Category"></label>
+                    <select class="form-control" asp-for="CurrentArticle.Category.Id" asp-items="categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() })"></select>
                 </div>
                 <div class="row">
                     <label asp-for="CurrentArticle.PostImage"></label>
@@ -106,13 +97,12 @@
 
 @section Styles{
     <link href="~/js/plugins/pen/pen.css" rel="stylesheet" />
-    <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet" />
     <environment include="Development">
         <link href="~/css/article/editor.css" rel="stylesheet" />
     </environment>
 }
 @section Scripts{
-    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+
     <script src="~/js/plugins/pen/pen.js"></script>
     <script src="~/js/plugins/pen/pen-markdown.js"></script>
     <script src="~/js/plugins/pen/markdown.js"></script>

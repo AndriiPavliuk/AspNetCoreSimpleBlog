@@ -43,6 +43,9 @@ namespace Blog.Test.Articles
             });
             articles.Items.Count.ShouldBe(5);
             articles.TotalCount.ShouldBeGreaterThan(5);
+            var category = articles.Items.First().Category;
+            category.ShouldNotBeNull();
+            category.Name.Length.ShouldNotBe(0);
         }
 
         [Fact]

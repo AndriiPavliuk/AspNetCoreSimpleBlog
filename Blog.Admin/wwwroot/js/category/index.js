@@ -1,6 +1,6 @@
 ﻿$(function () {
-    var table = $('#article_table').bootstrapTable({
-        url: '/Articles/Index?handler=LoadArticle',         //请求后台的URL（*）
+    var table = $('#category_table').bootstrapTable({
+        url: '/Categorys/Index?handler=LoadCategory',         //请求后台的URL（*）
         method: 'get',                      //请求方式（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         striped: true,                      //是否显示行间隔色
@@ -26,10 +26,10 @@
         cardView: false,                    //是否显示详细视图
         detailView: false,                   //是否显示父子表            
         columns: [{
-            field: 'title',
-            title: '文章名'
+            field: 'name',
+            title: '分类名'
         }, {
-            field: 'postDate',
+            field: 'createDate',
             title: '创建时间',
             formatter: function (v, r, i) {
                 var d = new Date(v);
@@ -37,86 +37,82 @@
                     d.getHours() + ":" + d.getMinutes();
             }
         }, {
-            field: 'articleType',
-            title: '文章类型',
-            formatter: function (v, r, i) {
-                switch (v) {
-                    case 1:
-                        return 'Markdown';
-                    case 2:
-                        return 'HTML';
-                    default:
-                        return '未知';
-                }
-            },
-        }, {
-            field: 'category',
-            title: '文章分类',
-            class: 'category_col',
-            formatter: function (v, r, i) {
-                if (v == null) {
-                    return '';
-                }
-                return v.name;
-            }
+            field: 'articleCount',
+            title: '文章数量',
         },
         {
-            field: 'isPublish',
-            title: '是否发布',
-            formatter: function (value, row, index) {
-                //this 是col对象,就是当前json
-                return value ? '是' : '否';
-            }
-        }, {
             title: '操作',
             formatter: function (value, row, index) {
-                var detail = '<a onclick="return false;" class="btn btn-primary btn-sm btn_publish" data-id=' + row.id + ' href="#">' + (row.isPublish?'取消发布':'发布')+'</a>';
-                var edit = '<a class = "btn btn-white btn-sm J_menuItem" data-menuname="' + row.title + '" href="/Articles/Edit/' + row.id + '">编辑</a>';
+                var edit = '<button class = "btn btn-white btn-sm btn_edit" data-name="' + row.name + '" data-id="' + row.id + '">编辑</button>';
                 var del = '<a class= "btn btn-white btn-sm btn_delete" data-id=' + row.id + ' href="#">删除</a>';
-                return '<div class="btn-group" style="min-width:140px">' + detail + ' ' + edit + ' ' + del + '</div>';
+                return '<div class="btn-group" style="min-width:140px">' + edit + ' ' + del + '</div>';
             },
         }]
     });
 
-    $('body').on('click', '.J_menuItem', function () {
-        var JMenu = window.top.JMenu;
-        if (!JMenu) {
-            console.log('JMenu no define');
-            return false;
-        }
-        JMenu.createNewTab(this);
-        return false;
-    })
 
-    //删除按钮
-    $("body").on('click', '.btn_delete', function () {
-        var id = $(this).data('id');
+    var categoryUpdateOrAdd = function (isUpdate, data) {
+        var modal = $("#modal_category");
+        if (data.name.length == 0) {
+            swal('输入不能为空', '', 'error');
+        }
         $.ajaxWhithToken({
-            url: '/Articles/Index',
-            method: 'DELETE',
-            data: { id: id },
-            success: function () {
-                table.bootstrapTable('refresh');
+            url: '/Categorys/Index',
+            method: isUpdate?'PUT':'POST',
+            data: data,
+            success: function (data, status, res) {
+                if (res.status < 300) {
+                    toastr.success('', '保存成功', { positionClass: "toast-bottom-right" })
+                    modal.modal('hide');
+                    table.bootstrapTable('refresh');
+                }
             }
         })
-        return false;
-    })
-    //发布按钮
-    $("body").on('click', '.btn_publish', function () {
-        var id = $(this).data('id');
-        $.ajaxWhithToken({
-            url: '/Articles/Index',
-            method: 'GET',
-            data: {
+    }
+    $("body").on('click', '.btn_edit', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        var name = $this.data('name');
+        var modal = $("#modal_category");
+        modal.find("input[type=text]").val(name);
+        modal.find('.modal-title').text('编辑');
+
+        modal.modal("show");
+        var btn = modal.find('.btn_save')[0];
+        btn.onclick = function () {
+            categoryUpdateOrAdd(true, {
                 id: id,
-                handler: 'TogglePublish'
-            },
-            success: function (date, status, res) {
+                name: modal.find("input[type=text]").val()
+            })
+        };
+    })
+    $("body").on('click', '.btn_delete', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        $.ajaxWhithToken({
+            url: '/Categorys/Index',
+            method: 'DELETE',
+            data: data,
+            success: function (data, status, res) {
                 if (res.status < 300) {
+                    
                     table.bootstrapTable('refresh');
                 }
             }
         })
     })
+    $("#btn_add_category").click(function () {
+        var modal = $("#modal_category");
+        modal.modal("show");
+        modal.find('.modal-title').text('添加');
+        modal.find("input[type=text]").val('');
+        var btn = modal.find('.btn_save')[0]
+        btn.onclick = function () {
+            categoryUpdateOrAdd(false, {
+                name: modal.find("input[type=text]").val()
+            })
+        }
+    })
+
 
 })

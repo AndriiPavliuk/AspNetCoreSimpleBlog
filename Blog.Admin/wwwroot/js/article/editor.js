@@ -71,17 +71,6 @@
         $("#modal_edit_tags").on('click', '.btn_save', function () {
             SaveArticle();
             $("#modal_edit_tags").modal('hide');
-            //TODO SAVE
-            //var modalTags = $("#modal_edit_tags");
-            //var articleId = modalTags.data('articleId');
-            //var taglist = modalTags.find('.taglist').text().trim();
-            //taglist = $.unique(taglist);
-            //$.post('/Articles/Index?handler=UpdateTags', {
-            //    id: articleId,
-            //    tags: taglist,
-            //}, function (res) {
-
-            //})
         })
         $("#modal_edit_refresh").click(function (e) {
             $("#modal_edit_post_img").attr('src', $('#modal_edit_post_img_src').val());

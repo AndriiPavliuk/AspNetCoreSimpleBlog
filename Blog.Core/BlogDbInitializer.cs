@@ -57,7 +57,8 @@ namespace Blog.Core
                     PostDate = DateTime.Now,
                     Title = "标题" + i,
                     ViewCount = i,
-                    IsPublish = i % 2 == 0 ? true : false
+                    IsPublish = i % 2 == 0 ? true : false,
+                    ArticleType = ArticleType.MarkDown,
                 };
                 newArticle.Tags = newArticle.Tags == null ? new List<Tag>() : newArticle.Tags;
                 newArticle.Tags.Add(tags.ElementAt(i));
@@ -79,7 +80,8 @@ namespace Blog.Core
             {
                 DbContext.Categorys.Add(new Category()
                 {
-                    Name = "分类" + i.ToString()
+                    Name = "分类" + i.ToString(),
+                    CreateTime = DateTime.Now
                 });
             }
             DbContext.SaveChanges();
@@ -117,7 +119,7 @@ namespace Blog.Core
 
             //Admin user for tenancy host
             var adminUser = DbContext.Users.FirstOrDefault(u => u.UserName == User.AdminEmail);
-            if (adminUser == null&&DbContext.Users.Count()==0)
+            if (adminUser == null && DbContext.Users.Count() == 0)
             {
                 var newUser = new User
                 {

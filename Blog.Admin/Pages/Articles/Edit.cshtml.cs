@@ -40,7 +40,6 @@ namespace Blog.Admin.Pages.Articles
             await articleService.UpdateArticleAsync(editedArticle);
             return StatusCode(204);
         }
-
         
     }
 }

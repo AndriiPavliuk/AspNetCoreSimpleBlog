@@ -11,7 +11,7 @@ namespace Blog.Core.Articles
 {
     public interface IArticleService : IDomainService
     {
-        Task<PagedResultDto<Article>> GetArticleByPageAsync(QueryAriticelInputDto pagedResult);
+        Task<PagedResultDto<ArticleDto>> GetArticleByPageAsync(QueryAriticelInputDto pageQuery);
         Task<Article> AddArticleAsync(Article newArticle);
         Task UpdateArticleAsync(Article article);
         Task<Article> GetArticelAsync(int id);

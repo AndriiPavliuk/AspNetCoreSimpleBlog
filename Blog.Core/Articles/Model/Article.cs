@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Blog.Core.Articles.Model
@@ -16,7 +17,6 @@ namespace Blog.Core.Articles.Model
     }
     public class Article : Entity
     {
-        [Display(Description = "标题")]
         [Required]
         public string Title { get; set; }
         [Required]
@@ -27,16 +27,14 @@ namespace Blog.Core.Articles.Model
         public int ViewCount { set; get; }
         [Required]
         public string Summary { get; set; }
-        [Display(Description = "文章封面")]
         public string PostImage { get; set; }
         public DateTime UpdateDate { get; set; }
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
 
-
-
+        public int CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
-        [Display(Description = "标签")]
         public ICollection<Tag> Tags { get; set; }
         public Article()
         {

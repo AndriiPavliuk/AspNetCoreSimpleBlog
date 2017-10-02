@@ -19,6 +19,8 @@
         <link href="/css/font-awesome.css?v=4.3.0" rel="stylesheet">
         <link href="/css/animate.css" rel="stylesheet">
         <link href="/css/hpstyle.css?v=3.2.0" rel="stylesheet">
+        <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+        <link href="~/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link href="~/css/site.min.css" asp-append-version="true" rel="stylesheet" />
@@ -29,6 +31,8 @@
     @RenderBody()
     <script src="/js/hplus/jquery-2.1.1.min.js"></script>
     <script src="/js/hplus/bootstrap.min.js?v=3.4.0"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>    
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>    
     <script src="~/js/helper.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

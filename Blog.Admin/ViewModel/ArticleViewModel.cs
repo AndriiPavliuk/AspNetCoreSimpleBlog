@@ -33,6 +33,7 @@ namespace Blog.Admin.ViewModel
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
 
+        [DisplayName("分类")]
         public Category Category { get; set; }
         [DisplayName("标签")]
         public List<Tag> Tags { get; set; }

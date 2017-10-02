@@ -47,11 +47,15 @@
     <None Include="wwwroot\js\plugins\layer\extend\layer.ext.js" />
     <None Include="wwwroot\js\plugins\pace\pace.min.js" />
     <None Include="wwwroot\js\plugins\pen\font\fontello.svg" />
+    <None Include="wwwroot\js\plugins\sweetalert\sweetalert.min.js" />
     <None Include="wwwroot\js\plugins\toastr\toastr.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blog.AutoMapper\Blog.AutoMapper.csproj" />
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Categorys\" />
   </ItemGroup>
 </Project>
