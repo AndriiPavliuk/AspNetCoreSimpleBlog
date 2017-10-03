@@ -118,6 +118,7 @@ namespace Blog.Core.Articles
         {
             var result = (await _articleRep.GetAll()
                 .Include(o => o.ArticleTags)
+                .ThenInclude(at=>at.Tag)
                 .Where(o => o.ArticleTags.Where(t => t.Tag.Name == tagName).Any())
                 .ToListAsync())
                 .Select(o =>

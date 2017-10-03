@@ -901,7 +901,7 @@
     h: [/<h([1-6])\b[^>]*>(.*?)<\/h\1>/ig, function(a, b, c) {
       return '\n' + ('######'.slice(0, b)) + ' ' + c + '\n';
     }],
-    li: [/<(li)\b[^>]*>(.*?)<\/\1>/ig, '* $2\n'],
+    //li: [/<(li)\b[^>]*>(.*?)<\/\1>/ig, '- $2\n'],
     blockquote: [/<(blockquote)\b[^>]*>(.*?)<\/\1>/ig, '\n> $2\n'],
     pre: [/<pre\b[^>]*>(.*?)<\/pre>/ig, '\n```\n$1\n```\n'],
     code: [/<code\b[^>]*>(.*?)<\/code>/ig, '\n`\n$1\n`\n'],
@@ -912,7 +912,22 @@
   Pen.prototype.toMd = function() {
     var html = this.getContent()
           .replace(/\n+/g, '') // remove line break
-          .replace(/<([uo])l\b[^>]*>(.*?)<\/\1l>/ig, '$2'); // remove ul/ol
+          //.replace(/<([uo])l\b[^>]*>(.*?)<\/\1l>/ig, '$2'); // remove ul/ol
+	//process ol
+	var olMathes=html.match(/<ol>\s*(?:<li\b[^>]*>(.*?)<\/li>\s*)+<\/ol>/g)||[]
+	for(var i=0;i<olMathes.length;i++){
+		html=html.replace(olMathes[i],olMathes[i]
+								.replace.apply(olMathes[i],[/<(li)\b[^>]*>(.*?)<\/\1>/ig,'1. $2 \n'])
+								.replace(/<([uo])l\b[^>]*>(.*?)<\/\1l>/ig, '$2'))
+	}
+	//process ul
+	var ulMathes=html.match(/<ul>\s*(?:<li\b[^>]*>(.*?)<\/li>\s*)+<\/ul>/g)||[];
+	for(var i=0;i<ulMathes.length;i++){
+		html=html.replace(ulMathes[i],ulMathes[i]
+								.replace.apply(ulMathes[i],[/<(li)\b[^>]*>(.*?)<\/\1>/ig,'- $2 \n'])
+								.replace(/<([uo])l\b[^>]*>(.*?)<\/\1l>/ig, '$2'))
+	}
+	
 
     for(var p in regs) {
       if (regs.hasOwnProperty(p))

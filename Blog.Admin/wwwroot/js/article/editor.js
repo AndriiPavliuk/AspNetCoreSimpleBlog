@@ -1,4 +1,39 @@
-﻿$(function () {
+﻿window.editorUpload= (function () {
+    var uploader = {};
+    /**
+    * @param {object} data
+    * @param {requestCallback} cb function(isSuccess,data[if sucess]|res,res[if no sucess])
+    * data:{
+        @param {int} id
+        @param {string} Content
+        @param {string} Title
+        @param {bool} IsPublish
+        @param {string[]} [Tags=[]]
+        @param {int} Category - id of category
+        @param {string} [PostImage]
+        @param {string} [Summary]
+    *}
+    */
+    uploader.Upload = function (data, cb) {
+        data.Tags = data.Tags || [];
+        var postData = {};
+        for (var i in data) {
+            postData['CurrentArticle.' + i] = data[i];
+        }
+        $.ajaxWhithToken({
+            url: '/Articles/Edit/' + data.id,
+            method: 'PUT',
+            data: postData,
+            success: function (data, status, res) {
+                cb(true, data, res);
+            },
+            error:function(res) {
+                cb(false,res);
+            }
+        })
+    }
+})()
+$(function () {
     var SaveArticle = function () {
         var postData = $("#modal_edit_tags").serializeAnything();
         var content = window.pen.toMd();

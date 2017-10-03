@@ -13,6 +13,7 @@ using Blog.Core.Articles.Model;
 using Blog.Core;
 using Blog.EntityFramework.Repository;
 using Blog.Domain.Service;
+using Blog.Core.Extensions;
 
 namespace Blog.Web
 {
@@ -30,8 +31,7 @@ namespace Blog.Web
         {
             services.AddMvc();
             services.AddDbContext<BlogDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddRepository();
-            services.AddDomainService();
+            services.AddBlogService();
             
         }
 
