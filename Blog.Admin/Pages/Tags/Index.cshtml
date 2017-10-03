@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div id="toolbar">
+                    </div>
+                    <table id="tag_table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link href="~/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/js/tag/index.js"></script>
+}

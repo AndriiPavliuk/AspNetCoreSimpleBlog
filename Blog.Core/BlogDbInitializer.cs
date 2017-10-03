@@ -1,5 +1,6 @@
 ﻿using Blog.Core.Articles.Model;
 using Blog.Core.Categorys.Model;
+using Blog.Core.Relationship;
 using Blog.Core.Tags.Model;
 using Blog.Core.Users.Model;
 using Blog.Threading;
@@ -59,9 +60,14 @@ namespace Blog.Core
                     ViewCount = i,
                     IsPublish = i % 2 == 0 ? true : false,
                     ArticleType = ArticleType.MarkDown,
+                    UpdateDate=DateTime.Now,
                 };
-                newArticle.Tags = newArticle.Tags == null ? new List<Tag>() : newArticle.Tags;
-                newArticle.Tags.Add(tags.ElementAt(i));
+                newArticle.ArticleTags = newArticle.ArticleTags == null ? new List<ArticleTag>() : newArticle.ArticleTags;
+                newArticle.ArticleTags.Add(new ArticleTag()
+                {
+                    ArticleId = newArticle.Id,
+                    TagId = tags.ElementAt(i).Id
+                });
                 newArticle.Category = categorys.ElementAt(i % categorys.Count);
                 DbContext.Articles.Add(newArticle);
             }

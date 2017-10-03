@@ -17,6 +17,7 @@ using Xunit.Abstractions;
 using Blog.AutoMapper;
 using Blog.Admin.ViewModel;
 using Blog.Core.Tags.Model;
+using Blog.Core.Tags.Dto;
 
 namespace Blog.Test.Articles
 {
@@ -47,13 +48,13 @@ namespace Blog.Test.Articles
             editPage.ShouldNotBeNull();
 
             var article = _articleRep.GetAllList().First();
-            var newTags = article.Tags.ToList();
+            var newTags = article.ArticleTags.Select(o=>o.Tag).ToList();
             newTags.Add(new Tag() { Name = "测试标签" });
             editPage.CurrentArticle = new ArticleViewModel()
             {
                 Id = article.Id,
                 Title = "测试标题",
-                Tags = newTags
+                Tags = newTags.MapTo<List<TagDto>>()
             };
 
             await editPage.OnPutAsync();
@@ -62,8 +63,8 @@ namespace Blog.Test.Articles
             //Act
             article2.Title.ShouldBe("测试标题");
             article2.Content.ShouldBe(article.Content);
-            article2.Tags.Count.ShouldBeGreaterThan(1);
-            article2.Tags.Select(o => o.Name).ShouldContain("测试标签");
+            article2.ArticleTags.Count.ShouldBeGreaterThan(1);
+            article2.ArticleTags.Select(o => o.Tag.Name).ShouldContain("测试标签");
         }
 
         #region 为什么请求总是Not Found?

@@ -13,9 +13,10 @@ using System;
 namespace Blog.Core.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171003010013_Reconstruct Article Tag")]
+    partial class ReconstructArticleTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

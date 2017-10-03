@@ -31,6 +31,17 @@ namespace Blog.Test
                 return _dbContext;
             }
         }
+        public ServiceProvider ServiceProvider
+        {
+            get
+            {
+                if (_serviceProvider == null)
+                {
+                    throw new NullReferenceException();
+                }
+                return _serviceProvider;
+            }
+        }
 
         protected BlogTestBase(bool initialize = true)
         {
@@ -43,7 +54,7 @@ namespace Blog.Test
         {
             _serviceCollection = new ServiceCollection();
 
-            _serviceCollection.AddBlogService();
+            _serviceCollection.AddBlogService();//TODO remove from base class
             AdditionService(_serviceCollection);
             _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
@@ -56,7 +67,7 @@ namespace Blog.Test
             action?.Invoke(_serviceCollection);
             _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
-        
+
         public void AddTestDbContext<T>(Action<DbContextOptionsBuilder> dbOptionBuilderAction = null) where T : DbContext
         {
             if (dbOptionBuilderAction == null)

@@ -6,30 +6,60 @@ using Blog.Core.Tags.Model;
 using Blog.Repository;
 using System.Linq;
 using Blog.EntityFramework.Repository;
+using Blog.Core.Tags.Dto;
+using Blog.Dto;
+using Microsoft.EntityFrameworkCore;
+using Blog.Core.Relationship;
 
 namespace Blog.Core.Tags
 {
     public class TagService : ITagService
     {
-        private IRepository<Tag> tagRep;
+        private IRepository<Tag> _tagRep;
+        private IRepository<ArticleTag> _articleTagRep;
 
-        public TagService(IRepository<Tag> tagRep)
+        public TagService(IRepository<Tag> tagRep, IRepository<ArticleTag> articleTagRep)
         {
-            this.tagRep = tagRep;
+            this._tagRep = tagRep;
+            this._articleTagRep = articleTagRep;
         }
         public async Task<List<Tag>> GetOrCreateTagsAsync(List<string> tags)
         {
-            var exisitTags = tagRep.GetAllList(o => tags.Contains(o.Name));
-            //HACK exisitTags.Select(t => t.Name)会被执行多次吗
+            var exisitTags = _tagRep.GetAllList(o => tags.Contains(o.Name));
             var newTags = tags.Where(o => !(exisitTags.Select(t => t.Name).Contains(o))).Distinct();
             foreach (var item in newTags)
             {
                 var newTag = new Tag() { Name = item };
-                tagRep.Insert(newTag);
+                _tagRep.Insert(newTag);
                 exisitTags.Add(newTag);
             }
-            await tagRep.SaveChangesAsync();
+            await _tagRep.SaveChangesAsync();
             return exisitTags;
+        }
+        public async Task<PagedResultDto<TagDto>> GetTagByPageAsync(QueryTagInputDto queryInput)
+        {
+            var query = _tagRep.GetAll();
+            var resultList = await query
+             .Include(o => o.ArticleTags)
+             .Skip(queryInput.SkipCount)
+             .Take(queryInput.MaxResultCount)
+             .Select(c => new TagDto()
+             {
+                 Id = c.Id,
+                 Name = c.Name,
+                 ArticleCount = c.ArticleTags.Count
+             })
+             .ToListAsync();
+            var total = await query.CountAsync();
+            return new PagedResultDto<TagDto>(total, resultList);
+        }
+
+        public async Task DeleteTagAsync(int id)
+        {
+            var tag = await _tagRep.GetAsync(id);
+            await _articleTagRep.DeleteAsync(o => o.TagId == tag.Id);
+            await _tagRep.DeleteAsync(tag.Id);
+            await _tagRep.SaveChangesAsync();
         }
     }
 }

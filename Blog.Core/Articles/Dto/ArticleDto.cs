@@ -1,6 +1,9 @@
-﻿using Blog.AutoMapper;
+﻿using AutoMapper;
+using Blog.AutoMapper;
+using Blog.AutoMapper.Attributes;
 using Blog.Core.Articles.Model;
 using Blog.Core.Categorys.Dto;
+using Blog.Core.Tags.Dto;
 using Blog.Core.Tags.Model;
 using System;
 using System.Collections.Generic;
@@ -22,8 +25,9 @@ namespace Blog.Core.Articles.Dto
         public DateTime UpdateDate { get; set; }
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
-
+        [DontMapTo(typeof(Article))]
         public CategoryDto Category { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+        [DontMapTo(typeof(Article))]
+        public ICollection<TagDto> Tags { get; set; }
     }
 }

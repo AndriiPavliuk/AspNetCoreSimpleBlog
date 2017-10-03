@@ -1,5 +1,7 @@
 ﻿using Blog.Core.Articles.Dto;
 using Blog.Core.Articles.Model;
+using Blog.Core.Tags.Dto;
+using Blog.Core.Tags.Model;
 using Blog.Domain.Service;
 using Blog.Dto;
 using System;
@@ -12,10 +14,11 @@ namespace Blog.Core.Articles
     public interface IArticleService : IDomainService
     {
         Task<PagedResultDto<ArticleDto>> GetArticleByPageAsync(QueryAriticelInputDto pageQuery);
-        Task<Article> AddArticleAsync(Article newArticle);
-        Task UpdateArticleAsync(Article article);
-        Task<Article> GetArticelAsync(int id);
-        Task<List<Article>> GetArticelByTag(string tagName);
+        Task<ArticleDto> AddArticleAsync(Article newArticle);
+        Task UpdateArticleAsync(ArticleDto article);
+        Task UpdateArticleTagsAsync(int id, IList<TagDto> tags);
+        Task<ArticleDto> GetArticelAsync(int id);
+        Task<List<ArticleDto>> GetArticelByTag(string tagName);
         Task DeleteArticleAsync(int id);
     }
 }

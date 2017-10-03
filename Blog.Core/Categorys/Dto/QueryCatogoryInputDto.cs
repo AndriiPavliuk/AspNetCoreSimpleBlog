@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Blog.Core.Categorys.Dto
 {
-
-    public class QyeryCatogoryInputDto : PagedResultRequestDto
+    public class QueryCatogoryInputDto : PagedResultRequestDto
     {
 
     }

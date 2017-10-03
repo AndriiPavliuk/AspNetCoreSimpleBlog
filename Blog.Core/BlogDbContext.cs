@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Blog.Core.Relationship;
 
 namespace Blog.Core
 {
@@ -17,7 +18,7 @@ namespace Blog.Core
         public DbSet<Article> Articles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categorys { get; set; }
-
+        public DbSet<ArticleTag> ArticleTags { get; set; }
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
 
@@ -26,7 +27,7 @@ namespace Blog.Core
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ChangeTablePrefix<IdentityRole,User>("");
-
+            //modelBuilder.Entity<Tag>().HasMany(o=>o.Articles).
             
         }
     }

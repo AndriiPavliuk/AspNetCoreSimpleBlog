@@ -11,7 +11,7 @@ namespace Blog.Core.Categorys
 {
     public interface ICategoryService : IDomainService
     {
-        Task<PagedResultDto<CategoryDto>> GetCategoryByPageAsync(QyeryCatogoryInputDto pagedResult);
+        Task<PagedResultDto<CategoryDto>> GetCategoryByPageAsync(QueryCatogoryInputDto pagedResult);
         Task DeleteCategoryAsync(int id);
         Task<Category> AddCategoryAsync(string name);
         Task<Category> UpdateCategoryAsync(Category category);

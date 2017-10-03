@@ -13,6 +13,8 @@ using Blog.Core.Tags.Model;
 using Blog.Core.Articles.ContentProcessor;
 using Blog.Core.Tags;
 using Blog.AutoMapper;
+using Blog.Core.Tags.Dto;
+using Blog.Core.Relationship;
 
 namespace Blog.Core.Articles
 {
@@ -21,18 +23,21 @@ namespace Blog.Core.Articles
         private IRepository<Article> _articleRep;
         private ITagService _tagService;
         private IArticleContentProcessorProvider _contentProcessorProvider;
+        private IRepository<ArticleTag> _articleTagRep;
 
         public ArticleService(
             IRepository<Article> articleRep,
             ITagService tagService,
+            IRepository<ArticleTag> articleTagRep,
             IArticleContentProcessorProvider contentProcessorProvider)
         {
             this._articleRep = articleRep;
             this._tagService = tagService;
             this._contentProcessorProvider = contentProcessorProvider;
+            this._articleTagRep = articleTagRep;
         }
 
-        public async Task<Article> AddArticleAsync(Article newArticle)
+        public async Task<ArticleDto> AddArticleAsync(Article newArticle)
         {
             if (newArticle.Title.IsNullOrWhiteSpace())
             {
@@ -50,20 +55,22 @@ namespace Blog.Core.Articles
             newArticle.UpdateDate = newArticle.PostDate;
             var result = await _articleRep.InsertAsync(newArticle);
             await _articleRep.SaveChangesAsync();
-            return result;
+            return result.MapTo<ArticleDto>();
         }
 
-        public async Task<Article> GetArticelAsync(int id)
+        public async Task<ArticleDto> GetArticelAsync(int id)
         {
-            var article = await _articleRep.GetAllIncluding(o => o.Tags).Where(o => o.Id == id).FirstAsync();
+            var article = await _articleRep
+                .GetAll()
+                .Include(o=>o.Category)
+                .Include(o=>o.ArticleTags)
+                .ThenInclude(a=>a.Tag)
+                .Where(o => o.Id == id).FirstAsync();
 
-            if (article.Tags == null)
-            {
-                article.Tags = new List<Tag>();
-            }
-            await _articleRep.SaveChangesAsync();
-
-            return article;
+            
+            var result = article.MapTo<ArticleDto>();
+            result.Tags = article.ArticleTags.Select(o => o.Tag.MapTo<TagDto>()).ToList();
+            return result;
         }
 
         public async Task<PagedResultDto<ArticleDto>> GetArticleByPageAsync(QueryAriticelInputDto pageQuery)
@@ -75,7 +82,7 @@ namespace Blog.Core.Articles
             }
             if (pageQuery.WithTags)
             {
-                query = query.Include(o => o.Tags);
+                query = query.Include(o => o.ArticleTags);
             }
             if (pageQuery.WithCategory)
             {
@@ -87,26 +94,83 @@ namespace Blog.Core.Articles
                 .Skip(pageQuery.SkipCount)
                 .Take(pageQuery.MaxResultCount)
                 .ToListAsync();
+            List<ArticleDto> result;
+            if (pageQuery.WithTags)
+            {
+                result = resultList.Select(o =>
+                  {
+                      var tmp = o.MapTo<ArticleDto>();
+                      tmp.Tags = o.ArticleTags.Select(at => at.Tag.MapTo<TagDto>()).ToList();
+                      return tmp;
+                  }).ToList();
+            }
+            else
+            {
+                result = resultList.MapTo<List<ArticleDto>>();
+            }
             var total = await query.CountAsync();
-            return new PagedResultDto<ArticleDto>(total, resultList.MapTo<List<ArticleDto>>());
+            return new PagedResultDto<ArticleDto>(total, result);
         }
 
-        public async Task<List<Article>> GetArticelByTag(string tagName)
+        public async Task<List<ArticleDto>> GetArticelByTag(string tagName)
         {
-            return await _articleRep.GetAll().Include(o => o.Tags).Where(o => o.Tags.Where(t => t.Name == tagName).Any()).ToListAsync();
+            var result = (await _articleRep.GetAll()
+                .Include(o => o.ArticleTags)
+                .Where(o => o.ArticleTags.Where(t => t.Tag.Name == tagName).Any())
+                .ToListAsync())
+                .Select(o =>
+                {
+                    var tmp = o.MapTo<ArticleDto>();
+                    tmp.Tags = o.ArticleTags.Select(at => at.Tag.MapTo<TagDto>()).ToList();
+                    return tmp;
+                }).ToList();
+            return result;
         }
-        public async Task UpdateArticleAsync(Article article)
+        public async Task UpdateArticleAsync(ArticleDto articledto)
         {
-            var contentProcessor = _contentProcessorProvider.GetProcessor(article.ArticleType);
-            article.Content = contentProcessor.ProcessContent(article.Content);
+            var contentProcessor = _contentProcessorProvider.GetProcessor(articledto.ArticleType);
+            var article = await _articleRep.GetAsync(articledto.Id);
+            articledto.MapTo(article);
+            article.Content= contentProcessor.ProcessContent(articledto.Content);
             article.UpdateDate = DateTime.Now;
-            article.Tags = await _tagService.GetOrCreateTagsAsync(article.Tags.Select(o => o.Name).ToList());
+            //改CategoryId而不是Category
+            article.CategoryId = articledto.Category?.Id;
+            if (article.CategoryId == 0)
+            {
+                article.CategoryId = null;
+            }
+            ////因为GetOrCreateTagsAsync会SaveChanges,所以对Category的修改要在这之前
+            //articledto.Tags = await _tagService.GetOrCreateTagsAsync(articledto.Tags.Select(o => o.Name).ToList());
+
             await _articleRep.UpdateAsync(article);
         }
 
         public async Task DeleteArticleAsync(int id)
         {
             await _articleRep.DeleteAsync(id);
+            await _articleRep.SaveChangesAsync();
+        }
+
+        public async Task UpdateArticleTagsAsync(int id, IList<TagDto> inputTags)
+        {
+            var article =await _articleRep
+                         .GetAllIncluding(o=>o.ArticleTags)
+                         .Where(o=>o.Id==id).FirstAsync();
+            var exsistTags = article.ArticleTags.Select(o => o.TagId);
+            var inputTagEntities=await _tagService.GetOrCreateTagsAsync(inputTags.Select(o => o.Name).ToList());
+
+            var newTags=inputTagEntities.Where(t => !exsistTags.Contains(t.Id)).ToList();
+            var deleteingTags = exsistTags.Where(o => !inputTagEntities.Select(t => t.Id).Contains(o));
+
+            await _articleTagRep.DeleteAsync(o => o.ArticleId == id && deleteingTags.Contains(o.TagId));
+            foreach (var item in newTags)
+            {
+                _articleTagRep.Insert(new ArticleTag()
+                {
+                     ArticleId=id,
+                     TagId=item.Id
+                });
+            }
             await _articleRep.SaveChangesAsync();
         }
     }

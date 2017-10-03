@@ -8,6 +8,8 @@ using Blog.Repository;
 using Blog.Core.Articles.Model;
 using Blog.Core.Articles;
 using Blog.EntityFramework.Exceptions;
+using Blog.Core.Articles.Dto;
+using Blog.AutoMapper;
 
 namespace Blog.Web.Pages
 {
@@ -20,7 +22,7 @@ namespace Blog.Web.Pages
             this.articleService = articleService;
         }
 
-        public Article Article { get; private set; }
+        public ArticleDto Article { get; private set; }
 
 
         public async Task<IActionResult> OnGetAsync(int id)

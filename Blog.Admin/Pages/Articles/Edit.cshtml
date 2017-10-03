@@ -53,8 +53,13 @@
                     <input class="form-control" asp-for="CurrentArticle.Title" placeholder="请输入文章标题">
                 </div>
                 <div class="row">
+                    @{ 
+                        var items = categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() }).ToList();
+                        items.Insert(0, new SelectListItem() { Text = "无", Value = "" });
+                    }
+                    <input type="hidden" value="@Model.CurrentArticle.Category.Id" />
                     <label asp-for="CurrentArticle.Category"></label>
-                    <select class="form-control" asp-for="CurrentArticle.Category.Id" asp-items="categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() })"></select>
+                    <select class="form-control" asp-for="CurrentArticle.Category.Id" asp-items="items"></select>
                 </div>
                 <div class="row">
                     <label asp-for="CurrentArticle.PostImage"></label>

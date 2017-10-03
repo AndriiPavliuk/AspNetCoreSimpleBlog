@@ -1,4 +1,5 @@
 ﻿using Blog.Core.Categorys.Model;
+using Blog.Core.Relationship;
 using Blog.Core.Tags.Model;
 using Blog.Domain.Entity;
 using System;
@@ -32,10 +33,10 @@ namespace Blog.Core.Articles.Model
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<ArticleTag> ArticleTags { get; set; }
         public Article()
         {
 

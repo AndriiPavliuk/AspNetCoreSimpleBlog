@@ -33,16 +33,5 @@ namespace Blog.Test.Infrastructure
             instance.ShouldNotBeNull();
             instance.GetMyName().ShouldBe(nameof(FooService));
         }
-        [Fact]
-        public void Temp_Test()
-        {
-            IServiceCollection services = new ServiceCollection();
-            services.AddTransient<IFooSerice>();
-            services.AddTransient<FooService>();
-            var provider = services.BuildServiceProvider();
-            var instance = provider.GetService<IFooSerice>();
-
-            instance.ShouldNotBeNull();
-        }
     }
 }

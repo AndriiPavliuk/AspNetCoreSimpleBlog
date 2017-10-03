@@ -1,7 +1,9 @@
 ﻿using Blog.AutoMapper;
 using Blog.AutoMapper.Attributes;
+using Blog.Core.Articles.Dto;
 using Blog.Core.Articles.Model;
 using Blog.Core.Categorys.Model;
+using Blog.Core.Tags.Dto;
 using Blog.Core.Tags.Model;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 namespace Blog.Admin.ViewModel
 {
     [MapIgnoreNullMember]
-    [AutoMap(typeof(Article))]
+    [AutoMap(typeof(ArticleDto))]
     public class ArticleViewModel
     {
         public int Id { get; set; }
@@ -36,7 +38,7 @@ namespace Blog.Admin.ViewModel
         [DisplayName("分类")]
         public Category Category { get; set; }
         [DisplayName("标签")]
-        public List<Tag> Tags { get; set; }
+        public List<TagDto> Tags { get; set; }
         public ArticleViewModel()
         {
 

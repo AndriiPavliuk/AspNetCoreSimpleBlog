@@ -25,7 +25,7 @@ namespace Blog.Admin.Pages.Categorys
         public BootStrapTableQueryModel Query { get; set; }
         public async Task<IActionResult> OnGetLoadCategoryAsync()
         {
-            var queryInput = new QyeryCatogoryInputDto();
+            var queryInput = new QueryCatogoryInputDto();
             queryInput.FetchFromOther(Query.ToDto());
 
             var result = (await _categoryService.GetCategoryByPageAsync(queryInput)).ToBootStrapQueryResultModel();

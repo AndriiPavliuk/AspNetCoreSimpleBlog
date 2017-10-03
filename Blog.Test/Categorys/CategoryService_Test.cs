@@ -22,7 +22,7 @@ namespace Blog.Test.Categorys
         [Fact]
         public async System.Threading.Tasks.Task GetCategoryByPage_TestAsync()
         {
-            var result=await _categoryService.GetCategoryByPageAsync(new QyeryCatogoryInputDto()
+            var result=await _categoryService.GetCategoryByPageAsync(new QueryCatogoryInputDto()
             {
                 SkipCount = 1,
                 MaxResultCount = 5,

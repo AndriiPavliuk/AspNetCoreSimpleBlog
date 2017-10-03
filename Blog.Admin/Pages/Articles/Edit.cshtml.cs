@@ -29,8 +29,8 @@ namespace Blog.Admin.Pages.Articles
 
         public async Task OnGetAsync(int articleId)
         {
-            CurrentArticle = (await articleService.GetArticelAsync(articleId))
-                            .MapTo<ArticleViewModel>();
+            var article = await articleService.GetArticelAsync(articleId);
+            CurrentArticle = article.MapTo<ArticleViewModel>();
 
         }
         public async Task<ActionResult> OnPutAsync()
@@ -38,6 +38,7 @@ namespace Blog.Admin.Pages.Articles
             var article =await articleService.GetArticelAsync(CurrentArticle.Id);
             var editedArticle = CurrentArticle.MapTo(article);
             await articleService.UpdateArticleAsync(editedArticle);
+            await articleService.UpdateArticleTagsAsync(editedArticle.Id, CurrentArticle.Tags);
             return StatusCode(204);
         }
         

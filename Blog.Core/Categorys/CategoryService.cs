@@ -48,7 +48,7 @@ namespace Blog.Core.Categorys
             return await _categoryRep.GetAsync(id);
         }
 
-        public async Task<PagedResultDto<CategoryDto>> GetCategoryByPageAsync(QyeryCatogoryInputDto pagedQuery)
+        public async Task<PagedResultDto<CategoryDto>> GetCategoryByPageAsync(QueryCatogoryInputDto pagedQuery)
         {
             var query = _categoryRep.GetAll();
             var resultList = await query

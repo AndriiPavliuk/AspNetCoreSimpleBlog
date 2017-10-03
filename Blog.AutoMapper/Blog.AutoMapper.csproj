@@ -4,6 +4,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Attributes\IgnoreMapToAttribute.cs" />
+  </ItemGroup>
+
+
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.1" />
