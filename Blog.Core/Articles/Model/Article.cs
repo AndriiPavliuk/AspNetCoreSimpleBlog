@@ -32,7 +32,6 @@ namespace Blog.Core.Articles.Model
         public DateTime UpdateDate { get; set; }
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
-
         public int? CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }

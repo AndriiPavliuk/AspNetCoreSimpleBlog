@@ -2,6 +2,7 @@
 using Blog.Core.Articles.ContentProcessor;
 using Blog.Domain.Service;
 using Blog.EntityFramework.Repository;
+using Blog.Email;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Blog.Core.Extensions
         {
             services.AddRepository();
             services.AddDomainService();
+            services.AddEmailSender();
             BlogAutoMapper.Initialization();
             if (!services.Where(o => o.ServiceType == typeof(IArticleContentProcessorProvider)).Any())
             {

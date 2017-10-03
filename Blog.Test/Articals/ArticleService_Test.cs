@@ -105,7 +105,9 @@ namespace Blog.Test.Articles
                 Content = "11111",
                 Title = "2222",
             });
+            newArticle.ArticleType.ShouldBe(ArticleType.HTML);
             newArticle.CheckAllPropertiesAreNotNullOrDefault(nameof(ArticleDto.ViewCount),nameof(ArticleDto.Tags));
+            _articleRep.Get(newArticle.Id).ArticleType.ShouldBe(ArticleType.HTML);
 
         }
 
@@ -148,7 +150,10 @@ namespace Blog.Test.Articles
             article.ArticleTags.Select(o => o.Tag)
                 .ToList()
                 .ForEach(o => (o.Name.StartsWith("新建标签") || o.Name == "临时标签").ShouldBeTrue());
-
+            //测试空标签
+            await _articleService.UpdateArticleTagsAsync(article.Id, null);
+            article = _articleRep.GetAllList(o => o.Id == article.Id).First();
+            article.ArticleTags.Count.ShouldBe(0);
         }
     }
 }

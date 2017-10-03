@@ -8,7 +8,10 @@
             tagPostData += ('CurrentArticle.Tags[' + i + '].Name=' + encodeURIComponent(e) + '&');
         })
         tagPostData = tagPostData.slice(0, -1);
-        postData = tagPostData + '&' + postData + '&CurrentArticle.Content=' + content;
+        postData = postData + '&CurrentArticle.Content=' + encodeURIComponent(content);
+        if (tagPostData.length != 0) {
+            postData = postData + '&' + tagPostData;
+        }
         $.ajaxWhithToken({
             url: '/Articles/Edit/' + $("input[name='CurrentArticle.Id']").val(),
             method: 'PUT',

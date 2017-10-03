@@ -38,27 +38,34 @@ namespace Blog.Admin
             {
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequireUppercase = false;
+                o.SignIn.RequireConfirmedEmail = false;
             })
-                .AddEntityFrameworkStores<BlogDbContext>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<BlogDbContext>()
+            .AddDefaultTokenProviders();
             services.AddAntiforgery(o =>
             {
                 o.HeaderName = "X-CSRF-TOKEN";
             });
-
+            services.AddAuthentication()
+                .AddCookie(options =>
+                {
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                });
+            
             SeedUser(services);
             services.AddBlogService();
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
-                    options.Conventions.AuthorizeFolder("/Account/Manage");
-                    options.Conventions.AuthorizePage("/Account/Logout");
+                    options.Conventions.AuthorizeFolder("/");
                 });
 
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-            services.AddSingleton<IEmailSender, EmailSender>();
+            //services.AddSingleton<IEmailSender, EmailSender>();
         }
 
         private void SeedUser(IServiceCollection services)

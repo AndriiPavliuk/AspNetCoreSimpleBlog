@@ -4,23 +4,47 @@
     <UserSecretsId>aspnet-Blog.Admin-1BADB04E-06CE-49AF-B5F0-3276BC562E34</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Pages\Account\**" />
-    <Content Remove="Pages\Account\**" />
-    <EmbeddedResource Remove="Pages\Account\**" />
-    <None Remove="Pages\Account\**" />
+    <Compile Remove="Pages\Account\ConfirmEmail.cshtml.cs" />
+    <Compile Remove="Pages\Account\ExternalLogin.cshtml.cs" />
+    <Compile Remove="Pages\Account\ForgotPassword.cshtml.cs" />
+    <Compile Remove="Pages\Account\ForgotPasswordConfirmation.cshtml.cs" />
+    <Compile Remove="Pages\Account\LoginWith2fa.cshtml.cs" />
+    <Compile Remove="Pages\Account\LoginWithRecoveryCode.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\Disable2fa.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\EnableAuthenticator.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\ExternalLogins.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\GenerateRecoveryCodes.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\Index.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\ManageNavPages.cs" />
+    <Compile Remove="Pages\Account\Manage\ResetAuthenticator.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\SetPassword.cshtml.cs" />
+    <Compile Remove="Pages\Account\Manage\TwoFactorAuthentication.cshtml.cs" />
+    <Compile Remove="Pages\Account\Register.cshtml.cs" />
+    <Compile Remove="Pages\Account\ResetPassword.cshtml.cs" />
+    <Compile Remove="Pages\Account\ResetPasswordConfirmation.cshtml.cs" />
+    <Compile Remove="Pages\Account\SignedOut.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Pages\Editor.cshtml.cs" />
+    <Content Remove="Pages\Account\ConfirmEmail.cshtml" />
+    <Content Remove="Pages\Account\ExternalLogin.cshtml" />
+    <Content Remove="Pages\Account\ForgotPassword.cshtml" />
+    <Content Remove="Pages\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Remove="Pages\Account\LoginWith2fa.cshtml" />
+    <Content Remove="Pages\Account\LoginWithRecoveryCode.cshtml" />
+    <Content Remove="Pages\Account\Manage\Disable2fa.cshtml" />
+    <Content Remove="Pages\Account\Manage\EnableAuthenticator.cshtml" />
+    <Content Remove="Pages\Account\Manage\ExternalLogins.cshtml" />
+    <Content Remove="Pages\Account\Manage\GenerateRecoveryCodes.cshtml" />
+    <Content Remove="Pages\Account\Manage\Index.cshtml" />
+    <Content Remove="Pages\Account\Manage\ResetAuthenticator.cshtml" />
+    <Content Remove="Pages\Account\Manage\SetPassword.cshtml" />
+    <Content Remove="Pages\Account\Manage\TwoFactorAuthentication.cshtml" />
+    <Content Remove="Pages\Account\Register.cshtml" />
+    <Content Remove="Pages\Account\ResetPassword.cshtml" />
+    <Content Remove="Pages\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Remove="Pages\Account\SignedOut.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Pages\Articles\_ViewStart.cshtml" />
-    <Content Remove="Pages\Editor.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Pages\Account\Lockout.cshtml.cs" />
-    <Compile Include="Pages\Account\Login.cshtml.cs" />
-  
-  </ItemGroup>
+ 
 
  
   <ItemGroup>
@@ -36,8 +60,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Pages\Account\AccessDenied.cshtml" />
     <None Include="Pages\Account\Lockout.cshtml" />
     <None Include="Pages\Account\Login.cshtml" />
+    <None Include="Pages\Account\Manage\ChangePassword.cshtml" />
+    <None Include="Pages\Account\Manage\_StatusMessage.cshtml" />
     <None Include="wwwroot\js\article\editor.js" />
     <None Include="wwwroot\js\plugins\bootstrap-table\.DS_Store" />
     <None Include="wwwroot\js\plugins\bootstrap-table\bootstrap-table-mobile.min.js" />

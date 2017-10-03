@@ -46,7 +46,7 @@ namespace Blog.Admin.Pages.Articles
         {
             if (articleType.Equals("Markdown", StringComparison.InvariantCultureIgnoreCase))
             {
-                var newArticle = await articleService.AddArticleAsync(new Article());
+                var newArticle = await articleService.AddArticleAsync(new Article() {  ArticleType= ArticleType.MarkDown});
                 return RedirectToPage($"/Articles/Edit", new { articleId = newArticle.Id });
             }
             else

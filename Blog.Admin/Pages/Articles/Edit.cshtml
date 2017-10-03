@@ -30,7 +30,7 @@
             <i class="pen-icon icon-createlink" data-action="createlink"></i>
         </div>
     </div>
-    <div data-toggle="pen" data-placeholder="请输入">
+    <div data-tmp="@Model.CurrentArticle.ArticleType" data-toggle="pen" data-placeholder="请输入">
         @Html.Raw(Markdig.Markdown.ToHtml(Model.CurrentArticle.Content))
     </div>
 
@@ -57,7 +57,6 @@
                         var items = categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() }).ToList();
                         items.Insert(0, new SelectListItem() { Text = "无", Value = "" });
                     }
-                    <input type="hidden" value="@Model.CurrentArticle.Category.Id" />
                     <label asp-for="CurrentArticle.Category"></label>
                     <select class="form-control" asp-for="CurrentArticle.Category.Id" asp-items="items"></select>
                 </div>

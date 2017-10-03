@@ -25,6 +25,10 @@ namespace Blog.Core.Tags
         }
         public async Task<List<Tag>> GetOrCreateTagsAsync(List<string> tags)
         {
+            if (tags==null||tags.Count==0)
+            {
+                return new List<Tag>();
+            }
             var exisitTags = _tagRep.GetAllList(o => tags.Contains(o.Name));
             var newTags = tags.Where(o => !(exisitTags.Select(t => t.Name).Contains(o))).Distinct();
             foreach (var item in newTags)

@@ -39,6 +39,10 @@ namespace Blog.Core.Categorys
 
         public async Task DeleteCategoryAsync(int id)
         {
+            foreach (var item in await _articleRep.GetAllListAsync(o => o.CategoryId == id))
+            {
+                item.CategoryId = null;
+            }
             await _categoryRep.DeleteAsync(id);
             await _categoryRep.SaveChangesAsync();
         }

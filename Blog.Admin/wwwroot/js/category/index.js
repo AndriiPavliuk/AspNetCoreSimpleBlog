@@ -29,7 +29,7 @@
             field: 'name',
             title: '分类名'
         }, {
-            field: 'createDate',
+            field: 'createTime',
             title: '创建时间',
             formatter: function (v, r, i) {
                 var d = new Date(v);
@@ -92,7 +92,7 @@
         $.ajaxWhithToken({
             url: '/Categorys/Index',
             method: 'DELETE',
-            data: data,
+            data: {id:id},
             success: function (data, status, res) {
                 if (res.status < 300) {
                     

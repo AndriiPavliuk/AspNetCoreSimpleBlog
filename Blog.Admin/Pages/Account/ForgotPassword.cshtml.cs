@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Blog.Admin.Data;
 using Blog.Admin.Services;
+using Blog.Core.Users.Model;
+using Blog.Email;
 
 namespace Blog.Admin.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<User> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;

@@ -60,12 +60,14 @@ namespace Blog.Core.Articles
 
         public async Task<ArticleDto> GetArticelAsync(int id)
         {
+            //TODO Article Not Found
             var article = await _articleRep
                 .GetAll()
+                .Where(o => o.Id == id)
                 .Include(o=>o.Category)
                 .Include(o=>o.ArticleTags)
                 .ThenInclude(a=>a.Tag)
-                .Where(o => o.Id == id).FirstAsync();
+                .FirstAsync();
 
             
             var result = article.MapTo<ArticleDto>();
@@ -126,8 +128,10 @@ namespace Blog.Core.Articles
                 }).ToList();
             return result;
         }
+        //TODO Test this
         public async Task UpdateArticleAsync(ArticleDto articledto)
         {
+            
             var contentProcessor = _contentProcessorProvider.GetProcessor(articledto.ArticleType);
             var article = await _articleRep.GetAsync(articledto.Id);
             articledto.MapTo(article);
@@ -139,10 +143,9 @@ namespace Blog.Core.Articles
             {
                 article.CategoryId = null;
             }
-            ////因为GetOrCreateTagsAsync会SaveChanges,所以对Category的修改要在这之前
-            //articledto.Tags = await _tagService.GetOrCreateTagsAsync(articledto.Tags.Select(o => o.Name).ToList());
 
             await _articleRep.UpdateAsync(article);
+            await _articleRep.SaveChangesAsync();
         }
 
         public async Task DeleteArticleAsync(int id)
@@ -157,7 +160,7 @@ namespace Blog.Core.Articles
                          .GetAllIncluding(o=>o.ArticleTags)
                          .Where(o=>o.Id==id).FirstAsync();
             var exsistTags = article.ArticleTags.Select(o => o.TagId);
-            var inputTagEntities=await _tagService.GetOrCreateTagsAsync(inputTags.Select(o => o.Name).ToList());
+            var inputTagEntities=await _tagService.GetOrCreateTagsAsync(inputTags?.Select(o => o.Name).ToList());
 
             var newTags=inputTagEntities.Where(t => !exsistTags.Contains(t.Id)).ToList();
             var deleteingTags = exsistTags.Where(o => !inputTagEntities.Select(t => t.Id).Contains(o));
