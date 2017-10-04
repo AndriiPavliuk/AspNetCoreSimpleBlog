@@ -33,7 +33,10 @@ namespace Blog.Web
             services.AddMvc();
             services.AddOptions();
             services.Configure<BlogOption>(Configuration.GetSection("BlogOption"));
-            services.AddDbContext<BlogDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
+            //services.AddDbContext<BlogDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<BlogDbContext>(options =>
+               options.UseSqlite(Configuration.GetConnectionString("Default")));
             services.AddBlogService();
             
             

@@ -15,6 +15,8 @@ using Blog.Core.Users.Model;
 using Blog.EntityFramework.Repository;
 using Blog.Domain.Service;
 using Blog.Core.Extensions;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Blog.Admin
 {
@@ -31,9 +33,10 @@ namespace Blog.Admin
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //services.AddDbContext<BlogDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddDbContext<BlogDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+               options.UseSqlite(Configuration.GetConnectionString("Default")));
             services.AddIdentity<User, IdentityRole>(o =>
             {
                 o.Password.RequireNonAlphanumeric = false;
@@ -53,14 +56,14 @@ namespace Blog.Admin
                     options.LoginPath = "/Account/Login";
                     options.LogoutPath = "/Account/Logout";
                 });
-            
+
             SeedUser(services);
             services.AddBlogService();
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
-                    //options.Conventions.AuthorizeFolder("/");
+                    options.Conventions.AuthorizeFolder("/");
                 });
 
             // Register no-op EmailSender used by account confirmation and password reset during development
@@ -72,8 +75,12 @@ namespace Blog.Admin
         {
             var serviceProvider = services.BuildServiceProvider();
             var dbContext = serviceProvider.GetService<BlogDbContext>();
-            var dbInit = new BlogDbInitializer(dbContext);
-            dbInit.SeedUser(serviceProvider.GetService<UserManager<User>>());
+            if ((dbContext.Database.GetService<IDatabaseCreator>() 
+                as RelationalDatabaseCreator).Exists())
+            {
+                var dbInit = new BlogDbInitializer(dbContext);
+                dbInit.SeedUser(serviceProvider.GetService<UserManager<User>>());
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

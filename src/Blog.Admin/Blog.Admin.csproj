@@ -45,6 +45,7 @@
     <Content Remove="Pages\Account\ResetPassword.cshtml" />
     <Content Remove="Pages\Account\ResetPasswordConfirmation.cshtml" />
     <Content Remove="Pages\Account\SignedOut.cshtml" />
+    <Content Remove="Pages\_LoginPartial.cshtml" />
 
   </ItemGroup>
 
