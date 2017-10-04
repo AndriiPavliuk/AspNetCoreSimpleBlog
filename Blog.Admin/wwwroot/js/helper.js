@@ -14,6 +14,23 @@
         return toReturn.join("&").replace(/%20/g, "+");
     }
 
+    $.fn.serializeFormToObject = function () {
+        //serialize to array
+        var data = $(this).find(":input").serializeArray();
+
+        //add also disabled items
+        $(':disabled[name]', this)
+            .each(function () {
+                data.push({ name: this.name, value: $(this).val() });
+            });
+
+        //map to object
+        var obj = {};
+        data.map(function (x) { obj[x.name] = x.value; });
+
+        return obj;
+    };
+
     $.ajaxWhithToken = function (ajaxObj) {
         ajaxObj.headers = ajaxObj.headers || {};
         ajaxObj.headers["X-CSRF-TOKEN"] = $("meta[name='X-CSRF-TOKEN']").attr('content');

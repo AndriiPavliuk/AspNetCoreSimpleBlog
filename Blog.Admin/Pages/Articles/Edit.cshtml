@@ -1,111 +1,16 @@
 ﻿@page "{articleId:int}"
 @inject Blog.Repository.IRepository<Category> categoryRep
 @model EditModel
-@{
-}
-<div class="article_info col-md-2">
-    <div><b>创建日期：</b></div>
-    <div>@Model.CurrentArticle.PostDate</div>
-    <div><b>更新日期：</b></div>
-    <div>@Model.CurrentArticle.UpdateDate</div>
-    <div><b>编辑更多：</b><i class="fa fa-edit" style="font-size: 1.7rem;vertical-align:middle;cursor:pointer" data-toggle="modal" data-target="#modal_edit_tags"></i></div>
-</div>
-<div class="editor_wrap markdown_editor clearfix col-md-8">
-    <div class="toolbar_wrap">
-        <div id="custom-toolbar" class="pen-menu pen-menu" style="display: block; top: 20px; left: 10px;">
-            <i class="pen-icon icon-insertimage" data-action="insertimage"></i>
-            <i class="pen-icon icon-blockquote" data-action="blockquote"></i>
-            <i class="pen-icon icon-h2" data-action="h2"></i>
-            <i class="pen-icon icon-h3" data-action="h3"></i>
-            <i class="pen-icon icon-p active" data-action="p"></i>
-            <i class="pen-icon icon-code" data-action="code"></i>
-            <i class="pen-icon icon-insertorderedlist" data-action="insertorderedlist"></i>
-            <i class="pen-icon icon-insertunorderedlist" data-action="insertunorderedlist"></i>
-            <i class="pen-icon icon-inserthorizontalrule" data-action="inserthorizontalrule"></i>
-            <i class="pen-icon icon-indent" data-action="indent"></i>
-            <i class="pen-icon icon-outdent" data-action="outdent"></i>
-            <i class="pen-icon icon-bold" data-action="bold"></i>
-            <i class="pen-icon icon-italic" data-action="italic"></i>
-            <i class="pen-icon icon-underline" data-action="underline"></i>
-            <i class="pen-icon icon-createlink" data-action="createlink"></i>
-        </div>
-    </div>
-    <div data-tmp="@Model.CurrentArticle.ArticleType" data-toggle="pen" data-placeholder="请输入">
-        @Html.Raw(Markdig.Markdown.ToHtml(Model.CurrentArticle.Content))
-    </div>
-</div>
-
-<div class="modal inmodal" id="modal_edit_tags" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content animated fadeIn">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">编辑更多</h4>
-
-            </div>
-            <div class="modal-body">
-                <input type="hidden" asp-for="CurrentArticle.Id" />
-                <input type="hidden" asp-for="CurrentArticle.PostDate" />
-                <input type="hidden" asp-for="CurrentArticle.IsPublish" />
-                <div class="row">
-                    <label asp-for="CurrentArticle.Title"></label>
-                    <input class="form-control" asp-for="CurrentArticle.Title" placeholder="请输入文章标题">
-                </div>
-                <div class="row">
-                    @{
-                        var items = categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() }).ToList();
-                        items.Insert(0, new SelectListItem() { Text = "无", Value = "" });
-                    }
-                    <label asp-for="CurrentArticle.Category"></label>
-                    <select class="form-control" asp-for="CurrentArticle.Category.Id" asp-items="items"></select>
-                </div>
-                <div class="row">
-                    <label asp-for="CurrentArticle.PostImage"></label>
-                    <div class="input-group">
-                        <input class="form-control" id="modal_edit_post_img_src" asp-for="CurrentArticle.PostImage" placeholder="请输入封面图片url">
-                        <span id="modal_edit_refresh" class="input-group-addon"><i class="fa fa-refresh"></i></span>
-                    </div>
-                    <img id="modal_edit_post_img" src="@Model.CurrentArticle.PostImage" style="width:100%" />
-                </div>
-                <div class="row">
-                    <label asp-for="CurrentArticle.Summary"></label>
-                    <textarea asp-for="CurrentArticle.Summary" class="form-control"></textarea>
-                </div>
-                <div class="row">
-                    <label asp-for="CurrentArticle.Tags"></label>
-                    <div class="taglist">
-                        @foreach (var item in Model.CurrentArticle.Tags)
-                        {
-                            <span class="label label-primary">@item.Name <i class="fa fa-times-circle"></i></span>
-                        }
-                    </div>
-                    <div style="margin-top:20px;">
-                        <input id="tag_input" placeholder="添加标签 按回车添加" class="form-control">
-                    </div>
-                </div>
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary btn_save">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 @section Styles{
-    <link href="~/js/plugins/pen/pen.css" rel="stylesheet" />
-    <environment include="Development">
-        <link href="~/css/article/editor.css" rel="stylesheet" />
-    </environment>
+    @Html.RenderCssResource(typeof(EditorMdEditor))
 }
 @section Scripts{
-    <script src="~/js/plugins/pen/pen.js"></script>
-    <script src="~/js/plugins/pen/pen-markdown.js"></script>
-    <script src="~/js/article/editor.js"></script>
+    <script src="~/js/article/editor.js" asp-append-version="true"></script>
+
+    @Html.RenderJsResource(typeof(EditorMdEditor))
 }
+
+@*<vc:pen-editor model="@Model.CurrentArticle">
+    </vc:pen-editor>*@
+<vc:editor-md-editor model="@Model.CurrentArticle">
+</vc:editor-md-editor>

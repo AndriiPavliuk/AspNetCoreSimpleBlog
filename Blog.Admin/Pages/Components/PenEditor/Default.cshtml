@@ -1,0 +1,93 @@
+﻿@model ViewModel.ArticleViewModel
+@using Blog.Core.Categorys.Model
+@inject Blog.Repository.IRepository<Category> categoryRep
+<div class="article_info col-md-2">
+    <div><b>创建日期：</b></div>
+    <div>@Model.PostDate</div>
+    <div><b>更新日期：</b></div>
+    <div>@Model.UpdateDate</div>
+    <div><b>编辑更多：</b><i class="fa fa-edit" style="font-size: 1.7rem;vertical-align:middle;cursor:pointer" data-toggle="modal" data-target="#modal_edit_more"></i></div>
+</div>
+<div class="editor_wrap markdown_editor clearfix col-md-8">
+    <div class="toolbar_wrap">
+        <div id="custom-toolbar" class="pen-menu pen-menu" style="display: block; top: 20px; left: 10px;">
+            <i class="pen-icon icon-insertimage" data-action="insertimage"></i>
+            <i class="pen-icon icon-blockquote" data-action="blockquote"></i>
+            <i class="pen-icon icon-h2" data-action="h2"></i>
+            <i class="pen-icon icon-h3" data-action="h3"></i>
+            <i class="pen-icon icon-p active" data-action="p"></i>
+            <i class="pen-icon icon-code" data-action="code"></i>
+            <i class="pen-icon icon-insertorderedlist" data-action="insertorderedlist"></i>
+            <i class="pen-icon icon-insertunorderedlist" data-action="insertunorderedlist"></i>
+            <i class="pen-icon icon-inserthorizontalrule" data-action="inserthorizontalrule"></i>
+            <i class="pen-icon icon-indent" data-action="indent"></i>
+            <i class="pen-icon icon-outdent" data-action="outdent"></i>
+            <i class="pen-icon icon-bold" data-action="bold"></i>
+            <i class="pen-icon icon-italic" data-action="italic"></i>
+            <i class="pen-icon icon-underline" data-action="underline"></i>
+            <i class="pen-icon icon-createlink" data-action="createlink"></i>
+        </div>
+    </div>
+    <div data-toggle="pen" data-placeholder="请输入">
+        @Html.Raw(Markdig.Markdown.ToHtml(Model.Content))
+    </div>
+</div>
+
+<div class="modal inmodal" id="modal_edit_more" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">编辑更多</h4>
+
+            </div>
+            <div class="modal-body">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="PostDate" />
+                <input type="hidden" asp-for="IsPublish" />
+                <div class="row">
+                    <label asp-for="Title"></label>
+                    <input class="form-control" asp-for="Title" placeholder="请输入文章标题">
+                </div>
+                <div class="row">
+                    @{
+                        var items = categoryRep.GetAllList().Select(o => new SelectListItem() { Text = o.Name, Value = o.Id.ToString() }).ToList();
+                        items.Insert(0, new SelectListItem() { Text = "无", Value = "" });
+                    }
+                    <label asp-for="Category"></label>
+                    <select class="form-control" asp-for="Category.Id" asp-items="items"></select>
+                </div>
+                <div class="row">
+                    <label asp-for="PostImage"></label>
+                    <div class="input-group">
+                        <input class="form-control" id="modal_edit_post_img_src" asp-for="PostImage" placeholder="请输入封面图片url">
+                        <span id="modal_edit_refresh" class="input-group-addon"><i class="fa fa-refresh"></i></span>
+                    </div>
+                    <img id="modal_edit_post_img" src="@Model.PostImage" style="width:100%" />
+                </div>
+                <div class="row">
+                    <label asp-for="Summary"></label>
+                    <textarea asp-for="Summary" class="form-control"></textarea>
+                </div>
+                <div class="row">
+                    <label asp-for="Tags"></label>
+                    <div class="taglist">
+                        @foreach (var item in Model.Tags)
+                        {
+                            <span class="label label-primary">@item.Name <i class="fa fa-times-circle"></i></span>
+                        }
+                    </div>
+                    <div style="margin-top:20px;">
+                        <input id="tag_input" placeholder="添加标签 按回车添加" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn_save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+

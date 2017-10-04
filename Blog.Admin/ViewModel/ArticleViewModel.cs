@@ -32,6 +32,7 @@ namespace Blog.Admin.ViewModel
         [DisplayName("文章封面")]
         public string PostImage { get; set; }
         public DateTime UpdateDate { get; set; }
+        [DontMapTo(typeof(ArticleDto))]
         public ArticleType ArticleType { get; set; }
         public bool IsPublish { get; set; }
 

@@ -60,7 +60,7 @@ namespace Blog.Admin
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
-                    options.Conventions.AuthorizeFolder("/");
+                    //options.Conventions.AuthorizeFolder("/");
                 });
 
             // Register no-op EmailSender used by account confirmation and password reset during development

@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Blog.Admin-1BADB04E-06CE-49AF-B5F0-3276BC562E34</UserSecretsId>
+    <AssemblyName>Blog.Admin</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Pages\Account\ConfirmEmail.cshtml.cs" />
@@ -23,6 +24,7 @@
     <Compile Remove="Pages\Account\ResetPassword.cshtml.cs" />
     <Compile Remove="Pages\Account\ResetPasswordConfirmation.cshtml.cs" />
     <Compile Remove="Pages\Account\SignedOut.cshtml.cs" />
+    <Compile Remove="ViewComponents\ArticleEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\Account\ConfirmEmail.cshtml" />
@@ -43,8 +45,9 @@
     <Content Remove="Pages\Account\ResetPassword.cshtml" />
     <Content Remove="Pages\Account\ResetPasswordConfirmation.cshtml" />
     <Content Remove="Pages\Account\SignedOut.cshtml" />
+
   </ItemGroup>
- 
+
 
  
   <ItemGroup>
@@ -65,12 +68,191 @@
     <None Include="Pages\Account\Login.cshtml" />
     <None Include="Pages\Account\Manage\ChangePassword.cshtml" />
     <None Include="Pages\Account\Manage\_StatusMessage.cshtml" />
-    <None Include="wwwroot\js\article\editor.js" />
+    <None Include="wwwroot\js\article\pen_editor.js" />
     <None Include="wwwroot\js\plugins\bootstrap-table\.DS_Store" />
     <None Include="wwwroot\js\plugins\bootstrap-table\bootstrap-table-mobile.min.js" />
     <None Include="wwwroot\js\plugins\bootstrap-table\bootstrap-table.min.js" />
     <None Include="wwwroot\js\plugins\bootstrap-table\locale\bootstrap-table-zh-CN.js" />
     <None Include="wwwroot\js\plugins\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addons.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\comment\comment.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\comment\continuecomment.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\dialog\dialog.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\display\fullscreen.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\display\panel.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\display\placeholder.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\display\rulers.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\closebrackets.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\closetag.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\continuelist.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\matchbrackets.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\matchtags.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\edit\trailingspace.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\brace-fold.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\comment-fold.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\foldcode.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\foldgutter.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\indent-fold.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\markdown-fold.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\fold\xml-fold.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\anyword-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\css-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\html-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\javascript-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\show-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\sql-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\hint\xml-hint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\coffeescript-lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\css-lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\javascript-lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\json-lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\lint\yaml-lint.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\merge\merge.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\mode\loadmode.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\mode\multiplex.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\mode\multiplex_test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\mode\overlay.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\mode\simple.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\runmode\colorize.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\runmode\runmode-standalone.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\runmode\runmode.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\runmode\runmode.node.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\scroll\annotatescrollbar.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\scroll\scrollpastend.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\scroll\simplescrollbars.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\search\match-highlighter.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\search\matchesonscrollbar.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\search\search.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\search\searchcursor.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\selection\active-line.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\selection\mark-selection.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\selection\selection-pointer.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\tern\tern.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\tern\worker.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\addon\wrap\hardwrap.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\AUTHORS" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\codemirror.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\lib\codemirror.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\LICENSE" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\modes.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\apl\apl.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\asterisk\asterisk.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\clike\clike.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\clojure\clojure.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\cobol\cobol.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\coffeescript\coffeescript.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\commonlisp\commonlisp.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\css\css.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\css\less_test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\css\scss_test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\css\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\cypher\cypher.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\dart\dart.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\diff\diff.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\django\django.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\dockerfile\dockerfile.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\dtd\dtd.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\dylan\dylan.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\d\d.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\ebnf\ebnf.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\ecl\ecl.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\eiffel\eiffel.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\erlang\erlang.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\forth\forth.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\fortran\fortran.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\gas\gas.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\gfm\gfm.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\gfm\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\gherkin\gherkin.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\go\go.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\groovy\groovy.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\haml\haml.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\haml\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\haskell\haskell.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\haxe\haxe.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\htmlembedded\htmlembedded.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\htmlmixed\htmlmixed.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\http\http.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\idl\idl.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\jade\jade.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\javascript\javascript.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\javascript\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\jinja2\jinja2.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\julia\julia.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\kotlin\kotlin.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\livescript\livescript.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\lua\lua.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\markdown\markdown.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\markdown\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\meta.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\mirc\mirc.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\mllike\mllike.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\modelica\modelica.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\nginx\nginx.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\ntriples\ntriples.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\octave\octave.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\pascal\pascal.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\pegjs\pegjs.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\perl\perl.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\php\php.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\php\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\pig\pig.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\properties\properties.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\puppet\puppet.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\python\python.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\q\q.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\rpm\rpm.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\rst\rst.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\ruby\ruby.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\ruby\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\rust\rust.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\r\r.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\sass\sass.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\scheme\scheme.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\shell\shell.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\shell\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\sieve\sieve.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\slim\slim.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\slim\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\smalltalk\smalltalk.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\smartymixed\smartymixed.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\smarty\smarty.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\solr\solr.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\soy\soy.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\sparql\sparql.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\spreadsheet\spreadsheet.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\sql\sql.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\stex\stex.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\stex\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\stylus\stylus.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\tcl\tcl.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\textile\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\textile\textile.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\tiddlywiki\tiddlywiki.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\tiki\tiki.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\toml\toml.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\tornado\tornado.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\turtle\turtle.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\vbscript\vbscript.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\vb\vb.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\velocity\velocity.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\verilog\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\verilog\verilog.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\xml\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\xml\xml.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\xquery\test.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\xquery\xquery.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\yaml\yaml.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\mode\z80\z80.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\codemirror\README.md" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\flowchart.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\jquery.flowchart.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\marked.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\prettify.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\raphael.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\sequence-diagram.min.js" />
+    <None Include="wwwroot\js\plugins\editorMd\lib\underscore.min.js" />
     <None Include="wwwroot\js\plugins\layer\extend\layer.ext.js" />
     <None Include="wwwroot\js\plugins\pace\pace.min.js" />
     <None Include="wwwroot\js\plugins\pen\font\fontello.svg" />
@@ -81,6 +263,7 @@
     <ProjectReference Include="..\Blog.AutoMapper\Blog.AutoMapper.csproj" />
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.csproj" />
+    <ProjectReference Include="..\Blog.Mvc\Blog.Mvc.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Categorys\" />
