@@ -3,6 +3,7 @@
 AspNetCore2.0 Razor Pages Web App
 
 
+Blog.Admin 用户名admin@qq.com 密码可能是123qwe或者1234qwer
 
 # 注意事项
 
