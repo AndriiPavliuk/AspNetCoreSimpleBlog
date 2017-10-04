@@ -1,0 +1,14 @@
+﻿@model IOptions<BlogOption>
+<section class="sidebar_item friendlinks">
+    <div class="sidebar_item_title">
+        <p>FriendLinks</p>
+    </div>
+    <div class="sidebar_item_content">
+        <ul class="link_list">
+            @foreach (var item in Model.Value.FriendLinks)
+            {
+                <li><a href="@item.Href">@item.Name</a></li>
+            }
+        </ul>
+    </div>
+</section>

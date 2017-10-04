@@ -1,7 +1,6 @@
-﻿@page "{Tag?}"
-@model TagModel
-@{
-}
+﻿@page "{name}"
+@model CategoryModel
+
 @section Styles{
     <link href="~/css/tag.css" rel="stylesheet" />
 }
@@ -11,7 +10,7 @@
 
         <div class="container">
             <div class=" cover_title">
-                <h1>Tag: @Model.TagName</h1>
+                <h1>Category: @Model.CategoryName</h1>
             </div>
         </div>
 
@@ -31,20 +30,20 @@
                 <div class="post_thumb">
                     <a href="@Url.Page("/Post",new { id =item.Id})">
                         <img  src="@(item.PostImage??"http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/09/2-540x353.jpg")" sizes="(max-width: 540px) 100vw, 540px">
-                    </a>
+                    </a> 
                 </div>
                 <div class="content_list">
                     <div class="tags_wrap">
                         @if (item.Tags != null && item.Tags.Count != 0)
                         {
                             <ul class="tags list-unstyled">
-                                @foreach(var tag in item.Tags)
+                                @foreach (var tag in item.Tags)
                                 {
                                     <li>@tag.Name</li>
                                 }
                             </ul>
                         }
-                        
+
                     </div>
                     <div class="post_title">
                         <h2>
@@ -63,8 +62,8 @@
                 </div>
             </div>
         }
-   
 
-        
+
+
     </div>
 </div>

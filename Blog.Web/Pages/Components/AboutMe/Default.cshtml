@@ -1,0 +1,13 @@
+﻿
+@model IOptions<BlogOption>
+<cache>
+    <section class="sidebar_item aboutme">
+        <div class="sidebar_item_title">
+            <p>ABOUT ME</p>
+        </div>
+        <div class="sidebar_item_content">
+            <img src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/10/img-about-me.jpg" alt="..." class="img-circle">
+            <div class="my_word">@Model.Value.AboutMe</div>
+        </div>
+    </section>
+</cache>

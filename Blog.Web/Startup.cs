@@ -14,6 +14,7 @@ using Blog.Core;
 using Blog.EntityFramework.Repository;
 using Blog.Domain.Service;
 using Blog.Core.Extensions;
+using Blog.Core.Options;
 
 namespace Blog.Web
 {
@@ -30,8 +31,11 @@ namespace Blog.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddOptions();
+            services.Configure<BlogOption>(Configuration.GetSection("BlogOption"));
             services.AddDbContext<BlogDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddBlogService();
+            
             
         }
 

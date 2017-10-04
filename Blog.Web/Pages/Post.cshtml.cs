@@ -29,7 +29,7 @@ namespace Blog.Web.Pages
         {
             try
             {
-                Article = await articleService.GetArticelAsync(id);
+                Article = await articleService.GetArticleAsync(id);
                 Article.ViewCount += 1;
                 await articleService.UpdateArticleAsync(Article);
             }

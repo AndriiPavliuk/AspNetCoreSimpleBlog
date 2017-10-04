@@ -58,7 +58,7 @@ namespace Blog.Core.Articles
             return result.MapTo<ArticleDto>();
         }
 
-        public async Task<ArticleDto> GetArticelAsync(int id)
+        public async Task<ArticleDto> GetArticleAsync(int id)
         {
             //TODO Article Not Found
             var article = await _articleRep
@@ -114,7 +114,7 @@ namespace Blog.Core.Articles
             return new PagedResultDto<ArticleDto>(total, result);
         }
 
-        public async Task<List<ArticleDto>> GetArticelByTag(string tagName)
+        public async Task<List<ArticleDto>> GetArticleByTag(string tagName)
         {
             var result = (await _articleRep.GetAll()
                 .Include(o => o.ArticleTags)
@@ -176,6 +176,11 @@ namespace Blog.Core.Articles
                 });
             }
             await _articleRep.SaveChangesAsync();
+        }
+
+        public async Task<List<ArticleDto>> GetArticleByCategoryAsync(string categoryName)
+        {
+            return (await _articleRep.GetAll().Include(o => o.Category).Where(o => o.Category.Name == categoryName).ToListAsync()).MapTo<List<ArticleDto>>();
         }
     }
 }

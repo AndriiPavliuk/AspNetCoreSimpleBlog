@@ -73,7 +73,7 @@ namespace Blog.Test.Articles
         [Fact]
         public async Task GetArticle_TestAsync()
         {
-            var article = await _articleService.GetArticelAsync(1);
+            var article = await _articleService.GetArticleAsync(1);
             article.Tags.ShouldNotBeNull();
             article.Tags.Count.ShouldBeGreaterThan(0);
             article.Tags.First().ShouldNotBeNull();
@@ -114,7 +114,7 @@ namespace Blog.Test.Articles
         [Fact]
         public async Task GetArticleByTag_TestAsync()
         {
-            var articles = await _articleService.GetArticelByTag("标签1");
+            var articles = await _articleService.GetArticleByTag("标签1");
             articles.ShouldNotBeNull();
             articles.Count.ShouldBeGreaterThan(0);
             articles.First().Tags.Where(o => o.Name == "标签1").Any().ShouldBeTrue();

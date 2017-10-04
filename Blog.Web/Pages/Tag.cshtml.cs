@@ -21,7 +21,7 @@ namespace Blog.Web.Pages
         public async Task OnGetAsync(string Tag)
         {
             TagName = Tag;
-            this.Articles = await  articleService.GetArticelByTag(Tag);
+            this.Articles = await  articleService.GetArticleByTag(Tag);
         }
     }
 }

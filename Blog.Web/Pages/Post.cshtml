@@ -2,6 +2,7 @@
 @model PostModel
 @section Styles{
     <link href="~/css/post.css" rel="stylesheet" />
+    <link href="~/css/markdowntheme.css" rel="stylesheet" />
 }
 @section Header{
     <header class="header">
@@ -11,33 +12,13 @@
 @{
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.Article.Title;
-    ViewData["Keywords"] = Model.Article.Tags.Aggregate("",(a,b)=>a+=(b.Name+","));
+    ViewData["Keywords"] = Model.Article.Tags.Aggregate("", (a, b) => a += (b.Name + ","));
 }
 <div class="main">
     <div class="sidebar col-md-4">
-        <section class="sidebar_item aboutme">
-            <div class="sidebar_item_title">
-                <p>ABOUT ME</p>
-            </div>
-            <div class="sidebar_item_content">
-                <img src="http://demo.dgtthemes.com/dumblog/wp-content/uploads/2015/10/img-about-me.jpg" alt="..." class="img-circle">
-                <div class="my_word">
-                    Hey guy! My name is Dragon, I'm a web designer I love cat, reading, travelling and sport Welcome to my blog!
-                </div>
-            </div>
-        </section>
-        <section class="sidebar_item category">
-            <div class="sidebar_item_title">
-                <p>CATEGORIES</p>
-            </div>
-            <div class="sidebar_item_content">
-                <ul class="category_list">
-                    <li><a href="">Discovery</a></li>
-                    <li><a href="">Discovery</a></li>
-                    <li><a href="">Discovery</a></li>
-                </ul>
-            </div>
-        </section>
+        <vc:about-me></vc:about-me>
+        <vc:category></vc:category>
+        <vc:friend-links></vc:friend-links>
     </div>
     <div class="main_content col-md-8">
         <article>
@@ -50,7 +31,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="post_content">
+            <div class="post_content @(Model.Article.ArticleType== Core.Articles.Model.ArticleType.MarkDown?"markdown-body":"")">
                 @Html.Raw(Markdig.Markdown.ToHtml(Model.Article.Content))
             </div>
             <div class="post_footer">
@@ -58,7 +39,7 @@
             </div>
 
             <div class="post_action">
-                <div class="tag_share clearfix">  
+                <div class="tag_share clearfix">
                     <div class="tags">
                         <div>TAGS:</div>
                         @foreach (var item in Model.Article.Tags)

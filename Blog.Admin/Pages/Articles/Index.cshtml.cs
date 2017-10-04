@@ -56,7 +56,7 @@ namespace Blog.Admin.Pages.Articles
         }
         public async Task<IActionResult> OnGetTogglePublishAsync(int id)
         {
-            var article = await articleService.GetArticelAsync(id);
+            var article = await articleService.GetArticleAsync(id);
             article.IsPublish = !article.IsPublish;
             await articleService.UpdateArticleAsync(article);
             return StatusCode(201);

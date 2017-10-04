@@ -106,19 +106,19 @@ header.header {
     line-height: 26px;
 }
 
-.category_list {
+.link_list {
     list-style: none;
     text-align: left;
     padding-left: 0;
 }
 
-    .category_list li {
+    .link_list li {
         line-height: 40px;
         border-bottom: 1px dashed #ccc;
         color: rgb(119, 119, 119);
     }
 
-        .category_list li::before {
+        .link_list li::before {
             content: ' ';
             width: 5px;
             height: 5px;
@@ -129,12 +129,12 @@ header.header {
             transform: translateY(-50%);
         }
 
-        .category_list li a {
+        .link_list li a {
             color: inherit;
             transition: .3s ease;
         }
 
-        .category_list li:hover a {
+        .link_list li:hover a {
             padding-left: 10px;
             color: rgba(119, 119, 119,.5);
         }

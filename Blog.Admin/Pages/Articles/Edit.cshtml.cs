@@ -29,13 +29,13 @@ namespace Blog.Admin.Pages.Articles
 
         public async Task OnGetAsync(int articleId)
         {
-            var article = await articleService.GetArticelAsync(articleId);
+            var article = await articleService.GetArticleAsync(articleId);
             CurrentArticle = article.MapTo<ArticleViewModel>();
 
         }
         public async Task<ActionResult> OnPutAsync()
         {
-            var article =await articleService.GetArticelAsync(CurrentArticle.Id);
+            var article =await articleService.GetArticleAsync(CurrentArticle.Id);
             var editedArticle = CurrentArticle.MapTo(article);
             await articleService.UpdateArticleAsync(editedArticle);
             await articleService.UpdateArticleTagsAsync(editedArticle.Id, CurrentArticle.Tags);

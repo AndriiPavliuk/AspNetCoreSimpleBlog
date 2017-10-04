@@ -17,8 +17,9 @@ namespace Blog.Core.Articles
         Task<ArticleDto> AddArticleAsync(Article newArticle);
         Task UpdateArticleAsync(ArticleDto article);
         Task UpdateArticleTagsAsync(int id, IList<TagDto> tags);
-        Task<ArticleDto> GetArticelAsync(int id);
-        Task<List<ArticleDto>> GetArticelByTag(string tagName);
+        Task<ArticleDto> GetArticleAsync(int id);
+        Task<List<ArticleDto>> GetArticleByTag(string tagName);
+        Task<List<ArticleDto>> GetArticleByCategoryAsync(string categoryName);
         Task DeleteArticleAsync(int id);
     }
 }
